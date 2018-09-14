@@ -1,9 +1,9 @@
 \section{Tests}
 \label{sec-tests}
 
-At the moment 15 Geant4 tests are integrated in Geant Validation system: FluctTest, FragTest, MscHanson, TestEm3, TestEm9, hadr00, simplified calorimeter, test15, test22(HARP, NA49, NA61), test37, test46, tileatlas
+At the moment 15 Geant4 tests are integrated in Geant Validation system: FluctTest, FragTest, MscHanson, TestEm3, TestEm9, hadr00, simplified calorimeter, test15, test22(HARP, NA49, NA61), test37, test46, tileatlas.
 
-All listed tests can be configured and run with {\tt geant-config-generator} utility which has been developed by us as part of Geant validation system. Source code of tests are managed by {\tt git} and hosted on \url{gitlab.cern.ch}.
+All listed tests can be configured and run with {\tt geant-config-generator} utility which has been developed by us as part of Geant validation system. Source code of tests is hosted on \url{gitlab.cern.ch}.
 
 \subsection{Geant config generator}
 \label{sec-geant-config-generator}
@@ -19,7 +19,7 @@ Tests added in {\tt geant-config-generator} consist of four parts:
 	\item Python based class for parsing test's result and converting them into GVP's JSON format.
 \end{itemize}
 
-Each parameter listed in test's parameter file are substituted in templates which are generated as cartesian multiplication of all parameters. As example, for simplified calorimeter test 6102 configurations can be produced (and submitted) at one time.
+Each parameter listed in test's parameter file are substituted in templates which are generated as Cartesian multiplication of all parameters. As example, for simplified calorimeter test 6102 configurations can be produced (and submitted) at one time.
 
 Test's parser python class inherits from {\tt geant-config-generator}'s {\tt BaseParser} class in the following way:
 
