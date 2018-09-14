@@ -11,11 +11,15 @@
 %%% "twocolumn" for typesetting an article in two columns format (default one column)
 %
 \documentclass{webofc}
+%\documentclass[12pt]{article}
 \usepackage[varg]{txfonts}   % Web of Conferences font
 %\usepackage{bera}% optional: just to have a nice mono-spaced font
 \usepackage{listings}  % for JSON in appendix
 \usepackage{xcolor}
 \usepackage{hyperref}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian,english]{babel}
 
 %
 % Put here some packages required or/and some personnal commands
@@ -36,6 +40,7 @@
         \firstname{Alberto} \lastname{Ribon}\inst{1}\fnsep\thanks{\email{Alberto.Ribon@cern.ch}}	
         % etc.
 }
+%\author{L.~Freyermuth \and D.~Konstantinov \and G.~Latyshev \and W.~Pokorski \and A.~Ribon}
 
 \institute{CERN
 \and

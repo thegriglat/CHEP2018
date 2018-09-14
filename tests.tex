@@ -3,20 +3,20 @@
 
 At the moment 15 Geant4 tests are integrated in Geant Validation system: FluctTest, FragTest, MscHanson, TestEm3, TestEm9, hadr00, simplified calorimeter, test15, test22(HARP, NA49, NA61), test37, test46, tileatlas.
 
-All listed tests can be configured and run with {\tt geant-config-generator} utility which has been developed by us as part of Geant validation system. Source code of tests is hosted on \url{gitlab.cern.ch}.
+All listed tests can be configured and run with {\tt geant-config-generator} utility, which is a part of Geant validation system we developed. Source code of tests is hosted on \url{gitlab.cern.ch}.
 
 \subsection{Geant config generator}
 \label{sec-geant-config-generator}
 
-{\tt geant-config-generator} is utility for managing and producing tests configurations (not especially for Geant4). It allows to produce test's configurations, run them locally or various batch systems (currently only CERN LXBATCH and HTCondor supported) and analyses test's results. Source code is available on \url{https://gitlab.cern.ch/GeantValidation/geant-config-generator}.
+{\tt geant-config-generator} is an utility for managing and producing configuration files for tests. It is universal enough to be used for any other software. It allows to produce test's configurations, run them locally or on various batch systems (currently only CERN LXBATCH and HTCondor supported) and analyze test results. Source code is available on \url{https://gitlab.cern.ch/GeantValidation/geant-config-generator}.
 
-Tests added in {\tt geant-config-generator} consist of four parts:
+Each test in {\tt geant-config-generator} is made of four parts:
 
 \begin{itemize}
-	\item Template file ({\tt template.conf}) (see \ref{sc-template});
-	\item Test's parameters definition file ({\tt params.conf}) (see \ref{sc-parameters});
-	\item Run file ({\tt run.sh}) (see \ref{sc-run});
-	\item Python based class for parsing test's result and converting them into GVP's JSON format.
+	\item Test configuration template ({\tt template.conf}) (see \ref{sc-template});
+	\item File containing possible values of parameters ({\tt params.conf}) (see \ref{sc-parameters});
+	\item Script to execute the test ({\tt run.sh}) (see \ref{sc-run});
+	\item Python class for parsing test results and converting them into GVP's JSON format.
 \end{itemize}
 
 Each parameter listed in test's parameter file are substituted in templates which are generated as Cartesian multiplication of all parameters. As example, for simplified calorimeter test 6102 configurations can be produced (and submitted) at one time.
@@ -29,6 +29,7 @@ from gts.utils import getJSON
 
 class Test(BaseParser):
     TEST = "test37"
+    IGNOREKEYS = []
 
     def parse(self, jobs):
         # your code here
@@ -41,4 +42,4 @@ class Test(BaseParser):
 
 {\tt geant-validation-tests} is {\tt git} repository which we use to keep our patches for tests, integrated in Geant Validation system. Source code is available on \url{https://gitlab.cern.ch/GeantValidation/geant-validation-tests}.
 
-Mostly we modify author's tests to make output format more suitable for further parsing in {\tt geant-config-generator} or fix some unsafe behaviour (like using  default physic's model). Git infrastructure allow to update test's source code in easy way. Also we wrote build system to have a possibility to build tests for all Geant4 releases (if test supports it). In additional {\tt geant-validation-tests} build system encapsulates debug information in each test (build flags and git hash) to simplify test's versioning and debugging.
+Mostly we modify author's tests to make output format more suitable for further parsing in {\tt geant-config-generator} or fix some unsafe behaviour (like using  default physic's model). Git infrastructure allow to update test's source code in easy way. Also we wrote build system to have a possibility to build tests for all Geant4 releases (if test supports it). In additional {\tt geant-validation-tests} build system encapsulates debug information in each test (build flags and git hash) to simplify test's debugging.
