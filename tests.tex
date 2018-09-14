@@ -14,33 +14,35 @@ Each test in {\tt geant-config-generator} is made of four parts:
 
 \begin{itemize}
 	\item Test configuration template ({\tt template.conf}) (see \ref{hadr00-template});
-	\item File containing possible values of parameters ({\tt params.conf}) (see \ref{hadr00-parameters});
+	\item File containing values of parameters ({\tt params.conf}) (see \ref{hadr00-parameters});
 	\item Script to execute the test ({\tt run.sh}) (see \ref{hadr00-run});
 	\item Python class for parsing test results and converting them into GVP's JSON format.
 \end{itemize}
 
 We run tests for all possible combinations of parameters values (i.e., the Cartesian product of value sets) . For example, for "Hadr00" test we produce 480 jobs of parameters.
 
-Python class that parses test output inherits from {\tt geant-config-generator}'s {\tt BaseParser} class in the following way:
+For each tests Python parser class is written. Parsing procedure automatically paralleled over all available CPU to gain maximum efficiency and execution speed.
 
-\begin{verbatim}
-from gts.BaseParser import BaseParser
-from gts.utils import getJSON
+%Python class that parses test output inherits from {\tt geant-config-generator}'s {\tt BaseParser} class in the following way:
 
-class Test(BaseParser):
-    TEST = "test37"
-    IGNOREKEYS = []
+%\begin{verbatim}
+%from gts.BaseParser import BaseParser
+%from gts.utils import getJSON
 
-    def parse(self, jobs):
-        # your code here
-        yield getJSON(...)
-\end{verbatim}
+%class Test(BaseParser):
+%    TEST = "test37"
+%    IGNOREKEYS = []
+%
+%    def parse(self, jobs):
+%        # your code here
+%        yield getJSON(...)
+%\end{verbatim}
 
 
 \subsection{Geant tests repository}
 \label{sec-geant-validation-tests}
 
-Sometimes we have to modify original tests developed by Geant community to either make their output more suitable for parsing or to fix some unsafe behaviour (like using  default physic's model). These modified tests are kept in our own repository \href{https://gitlab.cern.ch/GeantValidation/geant-validation-tests}{geant-validation-tests}.
+Sometimes we have to modify original tests developed by Geant4 community to either make their output more suitable for parsing or to fix some unsafe behaviour (like using default physics model). These modified tests are kept in our repository \href{https://gitlab.cern.ch/GeantValidation/geant-validation-tests}{geant-validation-tests}.
 
 We have also developed tools to easily build all test for a given Geant4 release or releases.
 %Also we wrote build system to have a possibility to build tests for all Geant4 releases (if test supports it). In additional {\tt geant-validation-tests} build system encapsulates debug information in each test (compile flags and git hash) to simplify test's debugging.
