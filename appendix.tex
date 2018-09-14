@@ -4,7 +4,7 @@
 \colorlet{numb}{magenta!60!black}
 
 \lstdefinelanguage{json}{
-    basicstyle=\normalfont\ttfamily,
+    basicstyle=\normalsize\ttfamily,
     commentstyle=\color{eclipseStrings}, % style of comment
     stringstyle=\color{eclipseKeywords}, % style of strings
     numbers=left,
@@ -63,58 +63,39 @@
 \end{figure}
 
 \begin{figure}
-\begin{verbatim}
-/random/setSavingFlag 1
+\begin{lstlisting}
+/control/verbose 1
 /run/verbose 1
-/event/verbose 0
 /tracking/verbose 0
-/gun/particle %PARTICLE%
-/gun/energy %ENERGY% %ENERGY_UNIT%
-%DETECTOR%
-/run/beamOn %NEVENTS%
-\end{verbatim}
-\caption{Template file for {\tt simplified calorimeter} test.}
-\label{sc-template}
+/testhadr/TargetMat G4_%TARGETELM%
+/testhadr/TargetRadius 2 cm
+/testhadr/TargetLength  50 cm
+/run/printProgress 10
+/run/initialize
+/process/em/workerVerbose 0
+/run/setCut 1 km
+/gun/particle proton
+/gun/energy 20. GeV
+/testhadr/targetElm %TARGETELM%
+/testhadr/particle %PARTICLE%
+/testhadr/fileName test
+/testhadr/verbose 1
+/run/beamOn 1
+\end{lstlisting}
+\caption{Template file for "Hadr00" test.}
+\label{hadr00-template}
 \end{figure}
 
 \begin{figure}
-\begin{verbatim}
-!PARTICLE=pi-
-!PHYSLIST=FTFP_BERT, FTFP_BERT_HP, QGSP_BERT, QGSP_BERT_HP,  FTFP_BERT_TRV,
-FTFP_BERT_ATL, QGSP_INCLXX, QGSP_BIC, QGSP_FTFP_BERT
-!DETECTOR=include AtlasECAL, include AtlasFCAL, include AtlasHEC,
-include CmsECAL, include LhcbECAL, include TileCal
-!CONST:RANDOMSEED=AUTO
-!CONST:ENERGY_UNIT=GeV
-   PARTICLE  | ENERGY | PHYSLIST | DETECTOR | NEVENTS
-2* PARTICLE  | 1.     | PHYSLIST | DETECTOR | 2500
-2* PARTICLE  | 2.     | PHYSLIST | DETECTOR | 2500
-2* PARTICLE  | 3.     | PHYSLIST | DETECTOR | 2500
-2* PARTICLE  | 4.     | PHYSLIST | DETECTOR | 2500
-2* PARTICLE  | 5.     | PHYSLIST | DETECTOR | 2500
-2* PARTICLE  | 6.     | PHYSLIST | DETECTOR | 2500
-2* PARTICLE  | 7.     | PHYSLIST | DETECTOR | 2500
-2* PARTICLE  | 8.     | PHYSLIST | DETECTOR | 2500
-2* PARTICLE  | 9.     | PHYSLIST | DETECTOR | 2500
-2* PARTICLE  | 10.    | PHYSLIST | DETECTOR | 2500
-2* PARTICLE  | 11.    | PHYSLIST | DETECTOR | 2500
-2* PARTICLE  | 12.    | PHYSLIST | DETECTOR | 2500
-2* PARTICLE  | 13.    | PHYSLIST | DETECTOR | 2500
-2* PARTICLE  | 14.    | PHYSLIST | DETECTOR | 2500
-2* PARTICLE  | 15.    | PHYSLIST | DETECTOR | 2500
-2* PARTICLE  | 16.    | PHYSLIST | DETECTOR | 2500
-2* PARTICLE  | 17.    | PHYSLIST | DETECTOR | 2500
-2* PARTICLE  | 18.    | PHYSLIST | DETECTOR | 2500
-2* PARTICLE  | 19.    | PHYSLIST | DETECTOR | 2500
-5* PARTICLE  | 20.    | PHYSLIST | DETECTOR | 1000
-5* PARTICLE  | 25.    | PHYSLIST | DETECTOR | 1000
-5* PARTICLE  | 50.    | PHYSLIST | DETECTOR | 1000
-20* PARTICLE | 100.   | PHYSLIST | DETECTOR | 125
-20* PARTICLE | 200.   | PHYSLIST | DETECTOR | 125
-20* PARTICLE | 500.   | PHYSLIST | DETECTOR | 125
-\end{verbatim}
-\caption{Parameter's file for {\tt simplified calorimeter} test.}
-\label{sc-parameters}
+\begin{lstlisting}
+!PARTICLE=proton, e-, kaon-, kaon+, neutron, pi-, pi+, gamma
+!TARGETELM=Be, C, Cu, Fe, H, Pb, Si, U, He, Al
+!PHYSICS_LIST=FTFP_BERT, QGSP_BERT, FTFP_BERT_HP, FTFP_BERT_TRV, QGSP_BIC, QBBC
+PARTICLE | TARGETELM | PHYSICS_LIST
+PARTICLE | TARGETELM | PHYSICS_LIST
+\end{lstlisting}
+\caption{Parameter's file for "Hadr00" test.}
+\label{hadr00-parameters}
 \end{figure}
 
 
@@ -123,11 +104,9 @@ include CmsECAL, include LhcbECAL, include TileCal
 \begin{verbatim}
 #!/bin/bash
 source config.sh
-export PHYSLIST="%PHYSLIST%"
-export SHOWER_MAP_OFF="1"
-export G4NEUTRONHP_NEGLECT_DOPPLER="1"
-StatAccepTest sc.mac %RANDOMSEED% 1>test_stdout.txt 2>test_stderr.txt
+export PHYSLIST="%PHYSICS_LIST%"
+Hadr00 Hadr00.mac 1>test_stdout.txt 2>test_stderr.txt
 \end{verbatim}
-\caption{Run file for {\tt simplified calorimeter} test.}
-\label{sc-run}
+\caption{Run file for "Hadr00" test.}
+\label{hadr00-run}
 \end{figure}

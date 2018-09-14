@@ -4,25 +4,23 @@
 \subsection{Server side/Back end}
 \label{sec-webapplication-server}
 
-The server is the core of the geant-val system. It provides Web API for the clients to request data from PostgreSQL database
-and generates high quality plots on the fly when they are requested.
-
-Серверная часть приложения написана на JavaScript на платформе Node.js с использование PostgreSQL в качестве базы данных.
-
-Для генерации плотов используется написанная нами ROOT-based С++ утилита {\tt plotter}. Для пользователя плоты доступны в форматах PNG, ROOT, EPS, JSON, Gnuplot.
+The server is the core of the geant-val system.
+%It provides Web API for the clients to request data from PostgreSQL database and generates high quality plots on the fly when they are requested.
+It is written in JavaScript using Node.js as execution platform. PostgreSQL DBMS provided by CERN Database On Demand (DBoD) service is used to store all application data. Database schema is designed in way to allow store scatter plots and histograms with unlimited number of parameters effectively. To produce high quality plots we wrote ROOT based C++ utility {\tt plotter} which uses data in out JSON format. On the website plots are available in  ROOT, PNG and EPS formats. It is also possible to fetch chart/histogram raw data as JSON or Gnuplot files.
 
 \subsection{Client side/Front end}
 \label{sec-webapplication-client}
 
-Клиентская часть приложения написана на JavaScript с использованием фреймворка AngularJS версии 1.4.8. Сайт состоит из 4 основных разделов:
+Client side of application is AngularJS (1.4.8) single page application. Website contains 4 parts:
+
 \begin{itemize}
-    \item Layouts
+    \item User layouts
     \item Stat comparison
     \item Experimental data
-    \item Lookup tables
+    \item Page to search values in application's database
 \end{itemize}
 
-Страница Layouts предназначена для визуального сравнения предустановленных набора графиков для G4 и экспериментальных данных. Пользователь имеет возможность использовать уже существующие теплейты или загрузить свой. Каждый график в темплейте имеет возможность статического и интерактивного просмотра, а также построение ratio plots.
+Layout's page is designed for visual comparison of set of plots. It is allowed to compare different versions as well as against experimental data. Also users can write own templates and use it on layouts page. Each plot on the page can be viewed in static and interactive mode. In case of two or more versions selected one can plot ratio.
 
 Страница Stat comparison предназначена для статистической валидации выбранного теста и статистического сравнения двух версий G4 или одной версии и экспериментальных данных. Для каждой пары плотов пользователю выводятся значения $\chi^2/n.d.f.$, Kolmogorov-Smirnov test, а также $p$-value. Значения $\chi^2$ и Kolmogorov-Smirnov test вычисляются на стороне клиента в фоновых процессах браузера используя WebWorkers API, WebWorkers JavaScript code выдает те же результаты, что и ROOT. Имеется возможность сортировки таблицы $\chi^2$ по значения параметров теста и значениям $\chi^2$.
 
