@@ -16,18 +16,19 @@ The Python parser class should be written for test to convert test's result to t
 Parse procedure automatically paralleled over all available CPU to gain maximum execution speed.
 Python parse class inherits from $BaseParser$ class as listed in example below:
 
-\begin{verbatim}
+\begin{lstlisting}[language=python,firstnumber=1]
+#!/usr/bin/env python
 from gts.BaseParser import BaseParser
 from gts.utils import getJSON
 
 class Test(BaseParser):
-    TEST = "test37"
+    TEST = "TestName"
     IGNOREKEYS = []
 
     def parse(self, jobs):
         # your code here
         yield getJSON(...)
-\end{verbatim}
+\end{lstlisting}
 
 \section{Tests}
 \label{sec-tests}
