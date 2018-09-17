@@ -15,13 +15,14 @@ To produce high quality plots we use own ROOT~\cite{ROOT} based C++ utility whic
 
 %Node.js has an event-driven architecture capable of asynchronous I/O. These design choices aim to optimize throughput and scalability in web applications with many input/output operations, as well as for real-time Web applications (e.g., real-time communication programs and browser games).
 
-The schema of the client-server interactions is shown on the Fig.~\ref{fig:schema}. Both client and server side of the application use JSON for requests.
+The data flow between application components is shown on the Fig.~\ref{fig:dataflow}.
+%Both client and server side of the application use JSON for requests.
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth,clip]{schema.png}
-    \caption{Schema of the validation application}
-    \label{fig:schema}
+    \caption{Data flow between application components.}
+    \label{fig:dataflow}
 \end{figure}
 
 \subsection{Client side/Front end}

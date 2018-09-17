@@ -1,7 +1,7 @@
 \section{Tests}
 \label{sec-tests}
 
-At the moment 12 Geant4 tests are integrated in Geant Validation system: FluctTest, FragTest, MscHanson, TestEm3, TestEm9~(Cut, Energy), Hadr00, simplified calorimeter, test15, test22~(HARP, NA49, NA61), test37, test46, tileatlas. These tests are used by CERN Geant4 team for monthly validation.
+At the moment 12 Geant4 tests are integrated in Geant Validation system: FluctTest, FragTest, MscHanson, TestEm3, TestEm9, Hadr00, simplified calorimeter, test15, test22~(HARP, NA49, NA61), test37, test46, tileatlas. These tests are used by CERN Geant4 team for monthly validation.
 
 All listed tests can be configured and run with geant-config-generator utility, which is a part of Geant4 validation system we developed.
 
@@ -42,8 +42,12 @@ For each tests Python parser class is written. Parsing procedure automatically p
 
 To perform Geant4 validation using given test one needs to run test, convert test's output to Geant validation JSON format (see Appendix~\ref{adx:JSON-format}) and upload produced files to the website.
 
-To build test it is possible (but not necessary) to use our  repository\footnote{https://gitlab.cern.ch/GeantValidation/geant-validation-tests} which provides a simply way to compile tests for any version of Geant4 (if test supports the given Geant4 version).
-Then it is needed to integrate the test in geant-config-generator system (see Sec.~\ref{sec-geant-config-generator}). This step is necessary as geant-config-generator provides an unified way to parse test's result and convert them to JSON files. JSON files uploading is made by our console utility geant\_upload.py. After uploading the results are available on the website to view and analyze.
+To build a test one can use our  repository\footnote{https://gitlab.cern.ch/GeantValidation/geant-validation-tests}, which provides a simple way to compile a test for any Geant4 version (if this test supports that version of Geant4).
+Then one needs to integrate the test in geant-config-generator system (see Sec.~\ref{sec-geant-config-generator}). This step is necessary as geant-config-generator provides an unified way to parse test's result and convert them to JSON files. 
+
+Uploading of JSON files is performed by our console utility
+\href{https://gitlab.cern.ch/GeantValidation/GVP/raw/master/scripts/geant_upload.py}{geant\_upload.py}.
+After uploading the results are available on the website to view and analyze.
 
 
 %\subsection{Geant tests repository}
