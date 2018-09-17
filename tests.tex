@@ -1,25 +1,24 @@
 \section{Tests}
 \label{sec-tests}
 
-At the moment 15 Geant4 tests are integrated in Geant Validation system: FluctTest, FragTest, Mhadr00Hanson, TestEm3, TestEm9, Hadr00, simplified calorimeter, test15, test22(HARP, NA49, NA61), test37, test46, tileatlas.
+At the moment 15 Geant4 tests are integrated in Geant Validation system: FluctTest, FragTest, MscHanson, TestEm3, TestEm9, Hadr00, simplified calorimeter, test15, test22~(HARP, NA49, NA61), test37, test46, tileatlas. These tests are used by CERN Geant4 team for monthly and eventual validation.
 
-All listed tests can be configured and run with {\tt geant-config-generator} utility, which is a part of Geant validation system we developed. Source code of tests is hosted on \url{gitlab.cern.ch}.
+All listed tests can be configured and run with {\tt geant-config-generator} utility, which is a part of Geant4 validation system we developed.
 
 \subsection{Geant config generator}
 \label{sec-geant-config-generator}
 
-{\tt geant-config-generator} is an utility for managing and producing configuration files for tests. It is not Geant4-specific, and can be used for any other software (e.g., Pythia 8). It allows to produce test configurations, to run them locally or on various batch systems (currently only CERN LXBATCH and HTCondor supported) and to analyze the results. Source code is available on \url{https://gitlab.cern.ch/GeantValidation/geant-config-generator}.
+{\tt geant-config-generator} is an utility for managing and producing configuration files for tests. It is not Geant4-specific, and can be used for any other software (e.g., Pythia8). It allows to produce test configurations, to run them locally or on various batch systems (currently only CERN LSF and HTCondor supported) and to analyze the results. Source code is available on
+CERN Gitlab repository\footnote{https://gitlab.cern.ch/GeantValidation/geant-config-generator}.
 
-Each test in {\tt geant-config-generator} is made of four parts:
+Each test integrated in {\tt geant-config-generator} contains two parts:
 
 \begin{itemize}
-	\item Test configuration template ({\tt template.conf}) (see \ref{hadr00-template});
-	\item File containing values of parameters ({\tt params.conf}) (see \ref{hadr00-parameters});
-	\item Script to execute the test ({\tt run.sh}) (see \ref{hadr00-run});
-	\item Python class for parsing test results and converting them into GVP's JSON format.
+	\item Test configuration files with parameters of the test and template for configuration;
+	\item Python class for parsing test results and converting them into the application's JSON format (see Appendix~\ref{adx:JSON-format}).
 \end{itemize}
 
-We run tests for all possible combinations of parameters values (i.e., the Cartesian product of value sets) . For example, for "Hadr00" test we produce 480 jobs of parameters.
+We run tests for all possible combinations of parameters values (the Cartesian product of value sets). For example, for "Hadr00" test it produces 480 combinations of parameters.
 
 For each tests Python parser class is written. Parsing procedure automatically paralleled over all available CPU to gain maximum efficiency and execution speed.
 
@@ -39,10 +38,10 @@ For each tests Python parser class is written. Parsing procedure automatically p
 %\end{verbatim}
 
 
-\subsection{Geant tests repository}
-\label{sec-geant-validation-tests}
+%\subsection{Geant tests repository}
+%\label{sec-geant-validation-tests}
 
-Sometimes we have to modify original tests developed by Geant4 community to either make their output more suitable for parsing or to fix some unsafe behaviour (like using default physics model). These modified tests are kept in our repository \href{https://gitlab.cern.ch/GeantValidation/geant-validation-tests}{geant-validation-tests}.
+%Sometimes we have to modify original tests developed by Geant4 community to either make their output more suitable for parsing or to fix some unsafe behaviour (like using default physics model). These modified tests are kept in CERN Gitlab repository\footnote{https://gitlab.cern.ch/GeantValidation/geant-validation-tests}.
 
-We have also developed tools to easily build all test for a given Geant4 release or releases.
+%We have also developed tools to build all test for a given Geant4 release or releases.
 %Also we wrote build system to have a possibility to build tests for all Geant4 releases (if test supports it). In additional {\tt geant-validation-tests} build system encapsulates debug information in each test (compile flags and git hash) to simplify test's debugging.

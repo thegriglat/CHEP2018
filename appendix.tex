@@ -1,3 +1,6 @@
+% reset numbering and title
+\setcounter{figure}{0}
+\renewcommand{\figurename}{Appendix}
 
 \definecolor{eclipseStrings}{RGB}{42,0.0,255}
 \definecolor{eclipseKeywords}{RGB}{127,0,85}
@@ -59,54 +62,54 @@
 \end{lstlisting}
 
 \caption{Example of JSON format used by web application.}
-\label{JSON-format}
+\label{adx:JSON-format}
 \end{figure}
 
-\begin{figure}
-\begin{lstlisting}
-/control/verbose 1
-/run/verbose 1
-/tracking/verbose 0
-/testhadr/TargetMat G4_%TARGETELM%
-/testhadr/TargetRadius 2 cm
-/testhadr/TargetLength  50 cm
-/run/printProgress 10
-/run/initialize
-/process/em/workerVerbose 0
-/run/setCut 1 km
-/gun/particle proton
-/gun/energy 20. GeV
-/testhadr/targetElm %TARGETELM%
-/testhadr/particle %PARTICLE%
-/testhadr/fileName test
-/testhadr/verbose 1
-/run/beamOn 1
-\end{lstlisting}
-\caption{Template file for "Hadr00" test.}
-\label{hadr00-template}
-\end{figure}
+%\begin{figure}
+%\begin{lstlisting}
+%/control/verbose 1
+%/run/verbose 1
+%/tracking/verbose 0
+%/testhadr/TargetMat G4_%TARGETELM%
+%/testhadr/TargetRadius 2 cm
+%/testhadr/TargetLength  50 cm
+%/run/printProgress 10
+%/run/initialize
+%/process/em/workerVerbose 0
+%/run/setCut 1 km
+%/gun/particle proton
+%/gun/energy 20. GeV
+%/testhadr/targetElm %TARGETELM%
+%/testhadr/particle %PARTICLE%
+%/testhadr/fileName test
+%/testhadr/verbose 1
+%/run/beamOn 1
+%\end{lstlisting}
+%\caption{Template file for "Hadr00" test.}
+%\label{hadr00-template}
+%\end{figure}
 
-\begin{figure}
-\begin{lstlisting}
-!PARTICLE=proton, e-, kaon-, kaon+, neutron, pi-, pi+, gamma
-!TARGETELM=Be, C, Cu, Fe, H, Pb, Si, U, He, Al
-!PHYSICS_LIST=FTFP_BERT, QGSP_BERT, FTFP_BERT_HP, FTFP_BERT_TRV, QGSP_BIC, QBBC
-PARTICLE | TARGETELM | PHYSICS_LIST
-PARTICLE | TARGETELM | PHYSICS_LIST
-\end{lstlisting}
-\caption{Parameter's file for "Hadr00" test.}
-\label{hadr00-parameters}
-\end{figure}
+%\begin{figure}
+%\begin{lstlisting}
+%!PARTICLE=proton, e-, kaon-, kaon+, neutron, pi-, pi+, gamma
+%!TARGETELM=Be, C, Cu, Fe, H, Pb, Si, U, He, Al
+%!PHYSICS_LIST=FTFP_BERT, QGSP_BERT, FTFP_BERT_HP, FTFP_BERT_TRV, QGSP_BIC, QBBC
+%PARTICLE | TARGETELM | PHYSICS_LIST
+%PARTICLE | TARGETELM | PHYSICS_LIST
+%\end{lstlisting}
+%\caption{Parameter's file for "Hadr00" test.}
+%\label{hadr00-parameters}
+%\end{figure}
 
 
-\begin{figure}
-
-\begin{verbatim}
-#!/bin/bash
-source config.sh
-export PHYSLIST="%PHYSICS_LIST%"
-Hadr00 Hadr00.mac 1>test_stdout.txt 2>test_stderr.txt
-\end{verbatim}
-\caption{Run file for "Hadr00" test.}
-\label{hadr00-run}
-\end{figure}
+%\begin{figure}
+%
+%\begin{verbatim}
+%#!/bin/bash
+%source config.sh
+%export PHYSLIST="%PHYSICS_LIST%"
+%Hadr00 Hadr00.mac 1>test_stdout.txt 2>test_stderr.txt
+%\end{verbatim}
+%\caption{Run file for "Hadr00" test.}
+%\label{hadr00-run}
+%\end{figure}
