@@ -17,22 +17,21 @@ The server is written in JavaScript and run under Node.js engine. Node.js has an
 
 Database schema is designed in a way to allow storing scatter plots and histograms with unlimited number of parameters. Currently the application's database contains 86213 tests histograms/charts and 1414 experimental data ones.
 
-To produce high quality plots ROOT~\cite{ROOT} based C++ utility is developed. It uses data in the application's JSON format (see Appendix~\ref{adx:JSON-format}) which has been introduces as main data interface between all parts of the application. The plotter utility is not deeply integrated in the server infrastructure and can be used as a standalone application if one wish to plot data locally. It supports scatter plots and 1D histograms with ability to plot on one canvas histograms with different binning and/or ratio plots. Plot axes ranges and scales are selected automatically, with ability to override them if necessary. User-defined styles (in ROOT terms) are also supported.
+To produce high quality plots ROOT based C++ utility is developed. It uses data in the application's JSON format (see Appendix~\ref{adx:JSON-format}) which has been introduced as main data interface between all parts of the application. The plotter utility is not deeply integrated in the server infrastructure and can be used as a standalone application if one wish to plot data locally. It supports scatter plots and 1D histograms with ability to plot on one canvas histograms with different binning and/or ratio plots. Plot axes ranges and scales are selected automatically, with ability to override them if necessary. User-defined styles (in ROOT terms) are also supported.
 
-Client side application is an AngularJS single page application (SPA). 
-
-%AngularJS is a JavaScript-based open-source front-end web application framework mainly maintained by Google and by a community of individuals and corporations to address many of the challenges encountered in developing single-page applications. The JavaScript components complement Apache Cordova, a framework used for developing cross-platform mobile apps. It aims to simplify both the development and the testing of such applications by providing a framework for client-side model–view–controller (MVC) and model–view–viewmodel (MVVM) architectures, along with components commonly used in rich Internet applications.
-
-Website contains 4 pages:
+The second part of the validation application is front-end which is an AngularJS single page application (SPA).
+AngularJS is chosen because it allows to fastly build efficient web applications with highly reusable components.
+The website contains 4 pages:
 
 \begin{itemize}
     \item User layouts
     \item Statistical comparison
     \item Experimental data
-    \item Page to search values in application's database
+    \item Page to search values in the application's database
 \end{itemize}
 
-"User layouts" page (see Fig.~\ref{fig:layouts}) is designed for visual comparison of set of plots. It is possible to compare different versions between them and against experimental data. Also users can write their own templates and use them on the layouts page. Each plot on the page can be displayed in static and interactive mode. If two or more Geant4 versions are selected, one can also enable plotting the ratio.
+"User layouts" page (see Fig.~\ref{fig:layouts}) is designed for visual comparison of set of plots. It is possible to compare different versions between them and against experimental data. Also users can define their own templates and use them on the page. 
+If two or more Geant4 versions are selected, one can also enable plotting the ratio.
 
 \begin{figure}[h]
     \centering
@@ -41,7 +40,8 @@ Website contains 4 pages:
     \label{fig:layouts}
 \end{figure}
 
-"Statistical comparison" page (see Fig.~\ref{fig:statcomparison}) allows performing statistical validation of Geant4 and experiments for given test. It displays pairs of plots for different versions with the same parameter values. For these pairs results of $\chi^2$ and Kolmogorov-Smirnov (KS) tests are displayed ($\chi^2/n.d.f.$, $\chi^2$ probability, KS and KS $\mathrm{Max(D)}$). All computations are performed on the client side in separate browser's processes using WebWorkers API. Implementation of $\chi^2$ and Kolmogorov-Smirnov tests is validated and gives the same results as ROOT framework.
+"Statistical comparison" page (see Fig.~\ref{fig:statcomparison}) allows performing statistical validation of Geant4 and experiments for given test. It displays pairs of plots for different versions with the same parameter values. For these pairs results of $\chi^2$ and Kolmogorov-Smirnov (KS) tests are displayed ($\chi^2/n.d.f.$, $\chi^2$ probability, KS and KS $\mathrm{Max(D)}$). All computations are performed on the client side in separate browser's processes using JavaScript WebWorkers API.
+For this purpose $\chi^2$ and Kolmogorov-Smirnov tests have been reimplemented in JavaScript and validated against ROOT framework.
 
 \begin{figure}[h]
     \centering
@@ -50,7 +50,7 @@ Website contains 4 pages:
     \label{fig:statcomparison}
 \end{figure}
 
-On the "experiment data" page (see Fig.~\ref{fig:exppage}) one can see summary table of experimental data available in the application's database.
+On the "experimental data" page (see Fig.~\ref{fig:exppage}) a summary table of available experimental data is displayed. In the application experimental data is not linked with particular test and can be used by any tests if target, particles, observable and parameters match with sumilation data.
 "Lookup table" page contains all predefined values, such as project names, versions, observables, particles, etc.
 
 \begin{figure}[h]
@@ -60,7 +60,7 @@ On the "experiment data" page (see Fig.~\ref{fig:exppage}) one can see summary t
     \label{fig:exppage}
 \end{figure}
 
-Each plot in the application can be viewed in interactive mode using JSROOT~\cite{JSROOT}, which allows changing axes ranges, scales and styles of the data "on the fly" in the same way as it can be done in ROOT. It is possible to export the plots in PNG, ROOT or EPS format to use them in articles or reports. For testing purposes it also provides JSON and Gnuplot output.
+Each plot in the application can be viewed in static and interactive mode using JSROOT~\cite{JSROOT}, which allows changing axes ranges, scales and styles of the data "on the fly" in the same way as it can be done in ROOT. It is possible to export the plots in PNG, ROOT or EPS format to use them in articles or reports. For testing purposes the website also provides JSON and Gnuplot output.
 
 In order to restrict access to Geant4 testing releases, the application uses user authorization based on CERN Single-Sign-On service.
 
