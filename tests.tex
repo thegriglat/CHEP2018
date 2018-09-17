@@ -1,43 +1,43 @@
-\section{Tests}
-\label{sec-tests}
-
-At the moment 12 Geant4 tests are integrated in Geant Validation system: FluctTest, FragTest, MscHanson, TestEm3, TestEm9, Hadr00, simplified calorimeter, test15, test22~(HARP, NA49, NA61), test37, test46, tileatlas. These tests are used by CERN Geant4 team for monthly validation.
-
-All listed tests can be configured and run with geant-config-generator utility, which is a part of Geant4 validation system we developed.
-
-\subsection{Geant-config-generator utility}
-\label{sec-geant-config-generator}
+To manage a set of Geant4 tests and their configurations Python tool geant-config-generator was developed. The tool allows to configure and run test's jobs and parse simulation results to JSON format for further uploading to the application database.
 
 geant-config-generator is an utility for managing and producing configuration files for tests. It is not Geant4-specific, and can be used for any other software (e.g., Pythia8). It allows to produce test configurations, to run them locally or on various batch systems (currently only CERN LSF and HTCondor supported) and to analyze the results. Source code is available on
 CERN Gitlab repository\footnote{https://gitlab.cern.ch/GeantValidation/geant-config-generator}.
 
-Each test integrated in geant-config-generator system contains two parts:
+To be used in Geant validation application two test related parts should be added in geant-config-generator:
 
 \begin{itemize}
 	\item Test configuration files with parameters of the test and template for configuration;
 	\item Python class for parsing test results and converting them into the application's JSON format (see Appendix~\ref{adx:JSON-format}).
 \end{itemize}
 
-We run tests for all possible combinations of parameters values (the Cartesian product of value sets). For example, for "Hadr00" test it produces 480 combinations of parameters.
+According to these files geant-config-generator produces Cartesian product of input parameters and store prepared configuration files in "jobs". Later the jobs can be submitted in batch system (CERN LSF or HTCondor) or ran locally. In additional geant-config-generator provides friendly interface to monitor status of jobs and measure execution time for each job.
 
-For each tests Python parser class is written. Parsing procedure automatically paralleled over all available CPU to gain maximum efficiency and execution speed.
+The Python parser class should be written for test to convert test's result to the application JSON format. Further these JSON files can be uploaded to the site to be available for results comparison.
+Parse procedure automatically paralleled over all available CPU to gain maximum execution speed.
+Python parse class inherits from $BaseParser$ class as listed in example below:
 
-%Python class that parses test output inherits from {\tt geant-config-generator}'s {\tt BaseParser} class in the following way:
+\begin{verbatim}
+from gts.BaseParser import BaseParser
+from gts.utils import getJSON
 
-%\begin{verbatim}
-%from gts.BaseParser import BaseParser
-%from gts.utils import getJSON
+class Test(BaseParser):
+    TEST = "test37"
+    IGNOREKEYS = []
 
-%class Test(BaseParser):
-%    TEST = "test37"
-%    IGNOREKEYS = []
-%
-%    def parse(self, jobs):
-%        # your code here
-%        yield getJSON(...)
-%\end{verbatim}
+    def parse(self, jobs):
+        # your code here
+        yield getJSON(...)
+\end{verbatim}
 
-\subsection{Validation work flow}
+\section{Tests}
+\label{sec-tests}
+
+
+At the moment 12 Geant4 tests are integrated in Geant Validation system: FluctTest, FragTest, MscHanson, TestEm3, TestEm9, Hadr00, simplified calorimeter, test15, test22~(HARP, NA49, NA61), test37, test46, tileatlas. These tests are used by CERN Geant4 team for monthly validation.
+
+All listed tests can be configured and run with geant-config-generator utility, which is a part of Geant4 validation system we developed.
+
+\section{Validation work flow}
 \label{sec-workflow}
 
 To perform Geant4 validation using given test one needs to run test, convert test's output to Geant validation JSON format (see Appendix~\ref{adx:JSON-format}) and upload produced files to the website.
