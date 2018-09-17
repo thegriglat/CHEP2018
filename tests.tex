@@ -1,17 +1,17 @@
 \section{Tests}
 \label{sec-tests}
 
-At the moment 15 Geant4 tests are integrated in Geant Validation system: FluctTest, FragTest, MscHanson, TestEm3, TestEm9, Hadr00, simplified calorimeter, test15, test22~(HARP, NA49, NA61), test37, test46, tileatlas. These tests are used by CERN Geant4 team for monthly and eventual validation.
+At the moment 12 Geant4 tests are integrated in Geant Validation system: FluctTest, FragTest, MscHanson, TestEm3, TestEm9~(Cut, Energy), Hadr00, simplified calorimeter, test15, test22~(HARP, NA49, NA61), test37, test46, tileatlas. These tests are used by CERN Geant4 team for monthly validation.
 
-All listed tests can be configured and run with {\tt geant-config-generator} utility, which is a part of Geant4 validation system we developed.
+All listed tests can be configured and run with geant-config-generator utility, which is a part of Geant4 validation system we developed.
 
-\subsection{Geant config generator}
+\subsection{Geant-config-generator utility}
 \label{sec-geant-config-generator}
 
-{\tt geant-config-generator} is an utility for managing and producing configuration files for tests. It is not Geant4-specific, and can be used for any other software (e.g., Pythia8). It allows to produce test configurations, to run them locally or on various batch systems (currently only CERN LSF and HTCondor supported) and to analyze the results. Source code is available on
+geant-config-generator is an utility for managing and producing configuration files for tests. It is not Geant4-specific, and can be used for any other software (e.g., Pythia8). It allows to produce test configurations, to run them locally or on various batch systems (currently only CERN LSF and HTCondor supported) and to analyze the results. Source code is available on
 CERN Gitlab repository\footnote{https://gitlab.cern.ch/GeantValidation/geant-config-generator}.
 
-Each test integrated in {\tt geant-config-generator} contains two parts:
+Each test integrated in geant-config-generator system contains two parts:
 
 \begin{itemize}
 	\item Test configuration files with parameters of the test and template for configuration;
@@ -36,6 +36,14 @@ For each tests Python parser class is written. Parsing procedure automatically p
 %        # your code here
 %        yield getJSON(...)
 %\end{verbatim}
+
+\subsection{Validation work flow}
+\label{sec-workflow}
+
+To perform Geant4 validation using given test one needs to run test, convert test's output to Geant validation JSON format (see Appendix~\ref{adx:JSON-format}) and upload produced files to the website.
+
+To build test it is possible (but not necessary) to use our  repository\footnote{https://gitlab.cern.ch/GeantValidation/geant-validation-tests} which provides a simply way to compile tests for any version of Geant4 (if test supports the given Geant4 version).
+Then it is needed to integrate the test in geant-config-generator system (see Sec.~\ref{sec-geant-config-generator}). This step is necessary as geant-config-generator provides an unified way to parse test's result and convert them to JSON files. JSON files uploading is made by our console utility geant\_upload.py. After uploading the results are available on the website to view and analyze.
 
 
 %\subsection{Geant tests repository}
