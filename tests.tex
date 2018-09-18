@@ -14,21 +14,21 @@ According to these files geant-config-generator produces Cartesian product of in
 
 The Python parser class should be written for test to convert test's result to the application JSON format. Further these JSON files can be uploaded to the site to be available for results comparison.
 Parse procedure automatically paralleled over all available CPU to gain maximum execution speed.
-Python parse class inherits from $BaseParser$ class as listed in example below:
+% Python parse class inherits from $BaseParser$ class as listed in example below:
 
-\begin{lstlisting}[language=python,firstnumber=1]
-#!/usr/bin/env python
-from gts.BaseParser import BaseParser
-from gts.utils import getJSON
+% \begin{lstlisting}[language=python,firstnumber=1]
+% #!/usr/bin/env python
+% from gts.BaseParser import BaseParser
+% from gts.utils import getJSON
 
-class Test(BaseParser):
-    TEST = "TestName"
-    IGNOREKEYS = []
+% class Test(BaseParser):
+%     TEST = "TestName"
+%     IGNOREKEYS = []
 
-    def parse(self, jobs):
-        # your code here
-        yield getJSON(...)
-\end{lstlisting}
+%     def parse(self, jobs):
+%         # your code here
+%         yield getJSON(...)
+% \end{lstlisting}
 
 \section{Current status}
 \label{sec-status}
