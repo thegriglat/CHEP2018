@@ -2,11 +2,13 @@
 \label{sec-introduction}
 Geant4~\cite{Geant4} is a toolkit for the simulation of the passage of particles through matter. Its areas of application include high energy, nuclear and accelerator physics, as well as studies in medical and space science. 
 
-Geant4 is following a yearly release cycle, with internal test releases published almost every month.
+Geant4 is following annual release cycle, with internal test releases published every month.
 Most of test's developers perform internal validation of the code based on different approaches using wide stack of technologies such as PHP, C++, Python and others.
-It leads to strong bindings between Geant4 tests source code and internal validation tools.
-Therefore there is no simply way to compare Geant4 releases between themselves in total.
 
-In CERN SFT group it was decided to develop a tool for quick release validation by performing statistical and visual comparison both to previous release(s), and to experimental data. 
+Physics validation of Geant4 requires analysis of a large number of histograms produced by Geant4 tests, it includes regression testing, comparison of performance for different physics models, comparison with corresponding experimental measurements. 
 
-The presented tool is JavaScript single page application working with especially developed tool for Geant4 tests configuration.
+Due to high diversity of the tests it is practically impossible to perform one-stage physics validation as it requires to run all developer's micro frameworks and merging data into one view. In additional different formats of experimental data is often used that prevents sharing the same data between tests.
+
+A tool for uniform release validation is developed in CERN SFT group to perform statistical and visual comparison both to previous release(s) and to experimental data. 
+
+The presented tool is a website working with especially developed framework for Geant4 tests configuration and run.
