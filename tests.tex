@@ -31,18 +31,6 @@ Convert procedure is automatically paralleled over all available CPU to gain max
 
 
 
-\section{Validation work flow}
-\label{sec-workflow}
-
-To perform Geant4 validation using given test one needs to run test, convert test's output to Geant validation JSON format (see Appendix~\ref{adx:JSON-format}) and upload produced files to the website.
-
-To build a test it is possible to use CERN Gitlab repository\footnote{https://gitlab.cern.ch/GeantValidation/geant-validation-tests}, which provides a simple way to compile the test for any Geant4 version (if the test supports requested version of Geant4).
-Then one needs to integrate the test in {\tt geant-config-generator} system to be able produce and parse tests results.
-
-Uploading of JSON files is performed by {\tt geant\_upload.py}\footnote{https://gitlab.cern.ch/GeantValidation/GVP/raw/master/scripts/geant\_upload.py} console utility.
-After uploading the results are available on the website to view and analyze.
-
-
 %\subsection{Geant tests repository}
 %\label{sec-geant-validation-tests}
 
