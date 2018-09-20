@@ -11,13 +11,13 @@ for Geant4 tests configuration. The data flow between application components is 
     \label{fig:dataflow}
 \end{figure}
 
-The server is the core of the Geant4 validation system. It provides a web API allowing clients to access the database, responding to the clients requests and generates high quality plots "on the fly" using ROOT~\cite{ROOT} whenever they are requested.
+The server is the core of the Geant4 validation system. It provides a web API allowing clients to access the database, responds to the clients requests and generates high quality plots "on the fly" using ROOT~\cite{ROOT} whenever they are requested.
 
 The server is written in JavaScript and run under Node.js engine. Node.js has an event-driven architecture capable of asynchronous I/O. These design choices aim to optimize throughput and scalability in web applications with many input/output operations, as well as for real-time Web applications.
 
-PostgreSQL is used as database management system and provided by CERN Database-On-Demand service. Database schema is designed in a way to allow storing scatter plots and histograms with unlimited number of parameters. Currently the application's database contains 86213 tests histograms/charts and 1414 experimental data ones.
+PostgreSQL is used as database management system for the application. The database instance provided by CERN Database-On-Demand service. A database schema is designed in a way to allow storing scatter plots and histograms with unlimited number of variable test's parameters in additional to a few mandatory ones.
 
-To produce high quality plots ROOT based C++ utility is developed. It uses data in the application's JSON format (see Appendix~\ref{adx:JSON-format}) which has been introduced as main data interface between all parts of the application. The plotter utility is not deeply integrated in the server infrastructure and can be used as a standalone application if one wish to plot data locally. It supports scatter plots and 1D histograms with ability to plot on one canvas histograms with different binning and/or ratio plots. Plot axes ranges and scales are selected automatically, with ability to override them if necessary. User-defined styles (in ROOT terms) are also supported.
+To produce high quality plots ROOT based C++ {\tt plotter} utility is developed. It uses data in the application's JSON format (see Appendix~\ref{adx:JSON-format}) which has been introduced as main data interface between all parts of the application. The utility is not deeply integrated in the server infrastructure and can be used as a standalone application if one wish to plot data locally. It supports all types of the application's data with ability to plot on one canvas histograms with different binning and/or ratio plots. Plot axes ranges and scales are selected automatically, with ability to override them if necessary. User-defined styles are also supported.
 
 The second part of the validation application is front-end which is an AngularJS single page application (SPA).
 AngularJS is chosen because it allows to build efficient web applications with highly reusable components.
@@ -30,7 +30,7 @@ The website contains 4 parts:
     \item Page to search values in the application's database
 \end{itemize}
 
-"User layouts" page (see Fig.~\ref{fig:layouts}) is designed for visual comparison of set of plots. It is possible to compare different versions between them and against experimental data. Also users can define their own templates and use them on the page. 
+\textit{User layouts} page (see Fig.~\ref{fig:layouts}) is designed for visual comparison of predefined set of plots. It is possible to compare different versions between them and against experimental data. Also users can define their own templates and use them on the page. 
 If two or more Geant4 versions are selected, one can also enable plotting the ratio.
 
 \begin{figure}[h]
@@ -40,8 +40,9 @@ If two or more Geant4 versions are selected, one can also enable plotting the ra
     \label{fig:layouts}
 \end{figure}
 
-"Statistical comparison" page (see Fig.~\ref{fig:statcomparison}) allows performing statistical validation of Geant4 and experiments for given test. It displays pairs of plots for different versions with the same parameter values. For these pairs results of $\chi^2$ and Kolmogorov-Smirnov (KS) tests are displayed ($\chi^2/n.d.f.$, $\chi^2$ probability, KS and KS $\mathrm{Max(D)}$). All computations are performed on the client side in separate browser's processes using JavaScript WebWorkers API.
-For this purpose $\chi^2$ and Kolmogorov-Smirnov tests have been reimplemented in JavaScript and validated against ROOT framework.
+\textit{Statistical comparison} page (see Fig.~\ref{fig:statcomparison}) allows performing statistical validation of Geant4 and experimental data for given test. It displays results of statistical comparison for pairs of data with the same parameter values.
+Currently $\chi^2$ ($\chi^2/n.d.f.$, $\chi^2$ probability) and Kolmogorov-Smirnov (KS Max(D), KS probability) tests are implemented. All computations are performed on the client side in background using JavaScript WebWorkers API.
+For this purpose $\chi^2$ and Kolmogorov-Smirnov tests have been rewritten in JavaScript and validated against ROOT framework.
 
 \begin{figure}[h]
     \centering
@@ -50,8 +51,9 @@ For this purpose $\chi^2$ and Kolmogorov-Smirnov tests have been reimplemented i
     \label{fig:statcomparison}
 \end{figure}
 
-On the "experimental data" page (see Fig.~\ref{fig:exppage}) a summary table of available experimental data is displayed. In the application experimental data is not linked with particular test and can be used by any tests if target, particles, observable and parameters match with simulation data.
-"Lookup table" page contains all predefined values, such as project names, versions, observables, particles, etc.
+On the \textit{experimental data} page (see Fig.~\ref{fig:exppage}) a summary table of available experimental data is displayed. The experimental data is not linked with particular test and can be used by any tests if parameters match with simulation data.
+
+\textit{Lookup table} page contains all mandatory parameter's values, such as project names, versions, physical observables, particles, etc.
 
 \begin{figure}[h]
     \centering
@@ -60,7 +62,7 @@ On the "experimental data" page (see Fig.~\ref{fig:exppage}) a summary table of 
     \label{fig:exppage}
 \end{figure}
 
-Each plot in the application can be viewed in static and interactive mode using JSROOT~\cite{JSROOT}, which allows changing axes ranges, scales and styles of the data "on the fly" in the same way as it can be done in ROOT. It is possible to export the plots in PNG, ROOT or EPS format to use them in articles or reports. For testing purposes the website also provides JSON and Gnuplot output.
+Each plot on the website can be viewed in static and interactive mode using JSROOT~\cite{JSROOT}, which allows changing axes ranges, scales and styles of the data "on the fly" in the same way as it can be done in ROOT. It is possible to export the plots in PNG, ROOT or EPS formats to use them later. For testing purposes the website also provides JSON and Gnuplot output.
 
 In order to restrict access to Geant4 testing releases, the application uses user authorization based on CERN Single-Sign-On service.
 
