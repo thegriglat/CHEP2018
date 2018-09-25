@@ -1,7 +1,7 @@
 \section{Web application}
 \label{sec-webapplication}
 
-The developed web application consists of three main part: back-end (server side), front-end (client side) and tool 
+The developed web application consists of three main parts: the back-end (server side), the front-end (client side) and the tool 
 for Geant4 tests configuration. The data flow between application components is shown on the Fig.~\ref{fig:dataflow}.
 
 \begin{figure}[h]
@@ -11,7 +11,7 @@ for Geant4 tests configuration. The data flow between application components is 
     \label{fig:dataflow}
 \end{figure}
 
-The server is the core of the Geant4 validation system. It provides a web API allowing clients to access the database, responds to the clients requests and generates high quality plots "on the fly" using ROOT~\cite{ROOT} whenever they are requested.
+The server is the core of the Geant4 validation system. It provides web API allowing clients to access the database, responds to the clients' requests and generates high quality plots "on the fly" using ROOT~\cite{ROOT} whenever they are requested.
 
 The server is written in JavaScript and run under Node.js engine. Node.js has an event-driven architecture capable of asynchronous I/O. These design choices aim to optimize throughput and scalability in web applications with many input/output operations, as well as for real-time Web applications.
 
@@ -64,7 +64,7 @@ On the \textit{experimental data} page (see Fig.~\ref{fig:exppage}) a summary ta
 
 Each plot on the website can be viewed in static and interactive mode using JSROOT~\cite{JSROOT}, which allows changing axes ranges, scales and styles of the data "on the fly" in the same way as it can be done in ROOT. It is possible to export the plots in PNG, ROOT or EPS formats to use them later. For testing purposes the website also provides JSON and Gnuplot output.
 
-In order to restrict access to Geant4 testing releases, the application uses user authorization based on CERN Single-Sign-On service.
+Access to Geant4 testing releases requires user authorization via CERN Single Sign-On service.
 
 %Don't forget to give each section, subsection, subsubsection, and
 %paragraph a unique label (see Sect.~\ref{sec-1}).

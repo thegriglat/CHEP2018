@@ -1,18 +1,17 @@
-To manage a set of Geant4 tests and their configurations Python framework {\tt mc-config-generator} is developed. It allows to configure and run test jobs in batch system (CERN LSF, HTCondor, Torque PBS), and parse simulation results to JSON format for further uploading to the application database.
-The framework is not Geant4-specific, and can be used with other projects (e.g., Pythia8). Source code is available on
-CERN Gitlab repository\footnote{https://gitlab.cern.ch/GeantValidation/geant-config-generator}.
+To manage a set of Geant4 tests and their configurations Python framework {\tt mc-config-generator} was developed. It allows to configure and run test jobs in batch system (CERN LSF, HTCondor, Torque PBS), and to parse simulation results to JSON format for further uploading to the application database.
+The framework is not Geant4-specific, and can be used with other projects (e.g., Pythia8). Source code is available in corresponding Git repository\footnote{https://gitlab.cern.ch/GeantValidation/geant-config-generator}.
 
-To be used in Geant validation application two test related parts should be added in {\tt mc-config-generator} system:
+In order to use a new test with Geant validation application one needs to:
+%To be used in Geant validation application two test related parts should be added in {\tt mc-config-generator} system:
 
 \begin{itemize}
-	\item Parameters description file and templates for test run;
-	\item Python class for converting test output to the application's JSON format (see Appendix~\ref{adx:JSON-format}).
+	\item Provide a parameters description file and templates for running the test;
+	\item Implement a python class for converting test output to the application's JSON format (see Appendix~\ref{adx:JSON-format}).
 \end{itemize}
 
-According to test's parameters and template files {\tt mc-config-generator} generates Cartesian product of input parameters and store prepared configurations in "jobs". Later the jobs can be submitted in batch system or run locally. In additional {\tt mc-config-generator} provides console commands to monitor status of jobs and measure execution time for each job.
+According to test's parameters and template files {\tt mc-config-generator} generates Cartesian product of input parameters and store prepared configurations as "jobs". These jobs can later be submitted to a batch system or ran locally. In addition to that, {\tt mc-config-generator} provides console commands to monitor status of jobs and measure execution time for each job.
 
-The Python parser class should be written for test to convert test's results to the application JSON files. Further these JSON files can be uploaded to the website to be available for Geant4 validation.
-Convert procedure is automatically paralleled over all available CPU to gain maximum execution speed.
+The Python parser class should be written to convert test's results to the application JSON files. These JSON files can then be uploaded to the website to make them available for Geant4 validation. Convert procedure is automatically paralleled over all available CPU to gain maximum execution speed.
 % Python parse class inherits from $BaseParser$ class as listed in example below:
 
 % \begin{lstlisting}[language=python,firstnumber=1]
