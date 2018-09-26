@@ -2,7 +2,7 @@
 \label{sec-webapplication}
 
 The developed web application consists of three main parts: the back-end (server side), the front-end (client side) and the tool 
-for Geant4 tests configuration. The data flow between application components is shown on the Fig.~\ref{fig:dataflow}.
+for configuring and running Geant4 tests. The data flow between these components is shown in the Fig.~\ref{fig:dataflow}.
 
 \begin{figure}[h]
     \centering
@@ -15,13 +15,13 @@ The server is the core of the Geant4 validation system. It provides web API allo
 
 The server is written in JavaScript and run under Node.js engine. Node.js has an event-driven architecture capable of asynchronous I/O. These design choices aim to optimize throughput and scalability in web applications with many input/output operations, as well as for real-time Web applications.
 
-PostgreSQL is used as database management system for the application. The database instance provided by CERN Database-On-Demand service. A database schema is designed in a way to allow storing scatter plots and histograms with unlimited number of variable test's parameters in additional to a few mandatory ones.
+PostgreSQL is used as database management system for the application. The database instance is provided by CERN Database-On-Demand service. The database schema is designed in a way to allow storing scatter plots and histograms with unlimited number of optional test parameters in additional to a few mandatory ones.
 
-To produce high quality plots ROOT based C++ {\tt plotter} utility is developed. It uses data in the application's JSON format (see Appendix~\ref{adx:JSON-format}) which has been introduced as main data interface between all parts of the application. The utility is not deeply integrated in the server infrastructure and can be used as a standalone application if one wish to plot data locally. It supports all types of the application's data with ability to plot on one canvas histograms with different binning and/or ratio plots. Plot axes ranges and scales are selected automatically, with ability to override them if necessary. User-defined styles are also supported.
+To produce high quality plots ROOT based C++ {\tt plotter} utility is developed. It uses data in the application's JSON format (see Appendix~\ref{adx:JSON-format}) which has been introduced as main data interface between all parts of the application. The utility is not deeply integrated in the server infrastructure and can be used as a standalone application if one wishes to plot data locally. It supports all types of the application's data, can plot histograms with different binning on one canvas, and produce ratio plots. Plot axes ranges and scales are selected automatically, with ability to override them if necessary. User-defined styles are also supported.
 
-The second part of the validation application is front-end which is an AngularJS single page application (SPA).
+The second part of the validation application is the front-end, which is an AngularJS single page application (SPA).
 AngularJS is chosen because it allows to build efficient web applications with highly reusable components.
-The website contains 4 parts:
+The SPA contains 4 parts:
 
 \begin{itemize}
     \item User layouts
@@ -30,8 +30,8 @@ The website contains 4 parts:
     \item Page to search values in the application's database
 \end{itemize}
 
-\textit{User layouts} page (see Fig.~\ref{fig:layouts}) is designed for visual comparison of predefined set of plots. It is possible to compare different versions between them and against experimental data. Also users can define their own templates and use them on the page. 
-If two or more Geant4 versions are selected, one can also enable plotting the ratio.
+\textit{User layouts} page (see Fig.~\ref{fig:layouts}) is used to perform visual comparison of predefined set of plots. It is possible to compare different versions between themselves and against experimental data. Also users can define their own templates and use them on the page. 
+If two or more Geant4 versions are selected, one can also select "reference" dataset and plotting the ratio of other datasets to it.
 
 \begin{figure}[h]
     \centering
@@ -42,7 +42,7 @@ If two or more Geant4 versions are selected, one can also enable plotting the ra
 
 \textit{Statistical comparison} page (see Fig.~\ref{fig:statcomparison}) allows performing statistical validation of Geant4 and experimental data for given test. It displays results of statistical comparison for pairs of data with the same parameter values.
 Currently $\chi^2$ ($\chi^2/n.d.f.$, $\chi^2$ probability) and Kolmogorov-Smirnov (KS Max(D), KS probability) tests are implemented. All computations are performed on the client side in background using JavaScript WebWorkers API.
-For this purpose $\chi^2$ and Kolmogorov-Smirnov tests have been rewritten in JavaScript and validated against ROOT framework.
+For this purpose, JavaScript code to do $\chi^2$ and Kolmogorov-Smirnov tests have been written and validated against ROOT framework.
 
 \begin{figure}[h]
     \centering
