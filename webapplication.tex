@@ -1,7 +1,7 @@
-\section{Web application implementation overview}
+\section{Components of validation system}
 \label{sec-webapplication}
 
-The developed web application consists of three main parts: a backend (server side), a frontend (client side) and a framework for configuring and running Geant4 tests. The components of \textsf{Geant-val} web application and interactions between them are shown in the Fig.~\ref{fig:dataflow}.
+The components of \textsf{Geant-val} web application and interactions between them are shown in the Fig.~\ref{fig:dataflow}.
 
 \begin{figure}[h]
     \centering
@@ -10,24 +10,24 @@ The developed web application consists of three main parts: a backend (server si
     \label{fig:dataflow}
 \end{figure}
 
-The server is the core of the Geant4 validation system. It provides a web API that allows clients to access the database, respond to the clients' requests and generate high quality plots "on the fly" whenever they are requested using the ROOT~\cite{ROOT} data analysis framework.
-
+\textbf{The server} is the core of the Geant4 validation system. It provides a web API that allows clients to access the database, respond to the clients' requests and generate high quality plots "on the fly" whenever they are requested using the ROOT~\cite{ROOT} data analysis framework.
 It is written in JavaScript and runs with the Node.js engine~\cite{NodeJS}. 
 
- The database is used for storing plots containing simulation results or experimental data, together with parameters describing these plots: tool name and version (e.g. \texttt{Geant4, 10.4.p02}), name of the test by which the plot was produced, or Inspire (HepData) ID of the article, etc. PostgreSQL~\cite{Postgre} is used as database management system for the application. The database instance is provided by the CERN Database-On-Demand service  % The database schema is designed in a way to allow scatter plots and histograms with unlimited number of optional test parameters in additional to a few mandatory ones to be stored.
+\textbf{The database} is used for storing plots containing simulation results or experimental data, together with parameters describing these plots: tool name and version (e.g. \texttt{Geant4, 10.4.p02}), name of the test by which the plot was produced, or Inspire (HepData) ID of the article, etc. PostgreSQL~\cite{Postgre} is used as database management system for the application. The database instance is provided by the CERN Database-On-Demand service  % The database schema is designed in a way to allow scatter plots and histograms with unlimited number of optional test parameters in additional to a few mandatory ones to be stored.
 
 % db schema
 
- A ROOT-based C++ {\tt plotter} was developed to produce high quality plots. It uses data in the JSON format (see Appendix~\ref{adx:JSON-format}) which has been introduced as main interchange format between all parts of the application. The utility is not deeply integrated in the server infrastructure and can be used as a standalone application. It supports all types of application's data, can plot histograms with different binning on one canvas, and produce ratio plots. Ranges and scales of plot axes are selected automatically, with ability to override if necessary. % User-defined styles are also supported.
+\textbf{A ROOT-based C++ plotting utility} was developed to produce high quality plots. It uses data in the JSON format (see Appendix~\ref{adx:JSON-format}) which has been introduced as main interchange format between all parts of the application. The utility is not deeply integrated in the server infrastructure and can be used as a standalone application. It supports all types of application's data, can plot histograms with different binning on one canvas, and produce ratio plots. Ranges and scales of plot axes are selected automatically, with ability to override if necessary. % User-defined styles are also supported.
 
-The last component of the validation application is the client frontend, which is an AngularJS~\cite{AngularJS} single page application (SPA).
+\textbf{Web interface} is user-friendly AngularJS~\cite{AngularJS} single page application which provides plots with tests results together with statistical analysis to the users.
 
 %AngularJS is chosen because it allows to build efficient web applications with highly reusable components.
-The SPA contains 2 pages (see~\ref{sec-analyse} for details):
-\begin{itemize}
-    \item User layouts
-    \item Statistical comparisons
-\end{itemize}
+
+% The SPA contains 2 pages (see~\ref{sec-analyse} for details):
+% \begin{itemize}
+%     \item User layouts
+%     \item Statistical comparisons
+% \end{itemize}
 
 %\begin{figure}[h]
 %    \centering
@@ -117,3 +117,6 @@ Access to the test results produced with internal Geant4 releases is restricted 
 % Or use
 %\vspace*{5cm}  % with the correct table height
 %\end{table}
+
+To manage a set of Geant4 tests and their configurations, a \textbf{{\tt mc-config-generator} framework} was developed. It allows one to configure and run test jobs in various batch systems (CERN LSF, HTCondor, Torque PBS), and to convert the results into  JSON format for further uploading to the application database. The framework is not Geant4-specific, and can be used with other projects (e.g., Pythia8). Source code is available in corresponding Git repository\footnote{https://gitlab.cern.ch/GeantValidation/geant-config-generator}.
+

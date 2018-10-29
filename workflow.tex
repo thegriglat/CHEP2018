@@ -5,15 +5,9 @@
 
 % To perform the validation of Geant4 using \textsf{Geant-val} one needs to run all the tests, convert their output into the JSON format and upload the produced files to the website.
 
-\section{Generating results}
-
-\subsection{Running the tests}
-
-To manage a set of Geant4 tests and their configurations, a {\tt mc-config-generator} Python framework was developed. It allows one to configure and run test jobs in various batch systems (CERN LSF, HTCondor, Torque PBS), and to convert the results into  JSON format for further uploading to the application database. The framework is not Geant4-specific, and can be used with other projects (e.g., Pythia8). Source code is available in corresponding Git repository\footnote{https://gitlab.cern.ch/GeantValidation/geant-config-generator}.
+\section{Test's results}
 
 Each test supported by the {\tt mc-config-generator} consists of a "parameters" file, containing all combinations of parameters used by the given test, and one or more "template" files.
-
-\subsection{Importing test results into Geant-val}
 
 We use JSON, like shown in Appendix~\ref{adx:JSON-format}, for importing data into the database and for exchanging information between different parts of the web application. Each JSON file contains one plot scatter plot or 1D histogram, along with additional data:
 
