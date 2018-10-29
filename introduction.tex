@@ -6,6 +6,8 @@ The Geant4 team produces a public release once a year, with monthly internal tes
 
 Physics validation of Geant4, which includes regression testing (comparing physics output from one release to another), comparison of performance between different physics models and validation testing (comparing physics output with published experimental results), requires analysing a large number of data produced by Geant4 tests. %These tests were developed by Geant4 community, and utilise various approaches and a wide stack of technologies, such as PHP, C++, Python and others. This diversity makes it very hard to quickly perform full validation of release, as it requires running all developer's micro frameworks and merging data into one view. In addition, different formats of experimental data are often used, and that prevents sharing the same data between tests.
 
-In this article we present a tool to perform statistical and visual validation of different Geant4 physics models and releases. % comparisons with respect to previous release(s) and to the experimental data. 
+% In this article we present a tool to perform statistical and visual validation of different Geant4 physics models and releases. % comparisons with respect to previous release(s) and to the experimental data. 
 
 %The presented tool is a website working with a special framework designed for Geant4 tests configuration and execution.
+
+Geant4 validation procedure consists of two steps: generating results (executing the tests and importing their output into Geant-val) and analysing these results.
