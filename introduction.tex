@@ -2,12 +2,10 @@
 \label{sec-introduction}
 Geant4~\cite{Geant4} is a toolkit for the simulation of the passage of particles through matter. Its areas of application include high energy, nuclear and accelerator physics, as well as studies in medical and space science. 
 
-Geant4 is following annual release cycle, with internal test releases published every month.
+The Geant4 team produces a public release once a year, with monthly internal testing releases. These releases need to be validated.
 
-Physics validation of Geant4 requires analysis of a large number of histograms produced by Geant4 tests, it includes regression testing, comparison of performance for different physics models, comparison with corresponding experimental measurements. 
+Physics validation of Geant4, which includes regression testing (comparing physics output from one release to another), comparison of performance between different physics models and validation testing (comparing physics output with published experimental results), requires analysing a large number of data produced by Geant4 tests. %These tests were developed by Geant4 community, and utilise various approaches and a wide stack of technologies, such as PHP, C++, Python and others. This diversity makes it very hard to quickly perform full validation of release, as it requires running all developer's micro frameworks and merging data into one view. In addition, different formats of experimental data are often used, and that prevents sharing the same data between tests.
 
-Most of test's developers perform internal validation of the code using various approaches and wide stack of technologies, such as PHP, C++, Python and others. Due to high diversity of the tests it is practically impossible to perform one-stage physics validation as it requires to run all developer's micro frameworks and merging data into one view. In additional different formats of experimental data is often used that prevents sharing the same data between tests.
+In this article we present a tool to perform statistical and visual validation of different Geant4 physics models and releases. % comparisons with respect to previous release(s) and to the experimental data. 
 
-A tool for uniform release validation is developed in CERN SFT group to perform statistical and visual comparison both to previous release(s) and to experimental data. 
-
-The presented tool is a website working with special framework designed for Geant4 tests configuration and execution.
+%The presented tool is a website working with a special framework designed for Geant4 tests configuration and execution.

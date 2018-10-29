@@ -61,39 +61,39 @@ a web application for validation of detector simulations}
 \author{\firstname{Luc}~\lastname{Freyermuth}\inst{1},
         \firstname{Dmitri}~\lastname{Konstantinov}\inst{2,3}\fnsep\thanks{\email{Dmitri.Konstantinov@cern.ch}},
         \firstname{Grigorii}~\lastname{Latyshev}\inst{2}\fnsep\thanks{\email{Grigorii.Latyshev@cern.ch}}, \newline
+        \firstname{Ivan}~\lastname{Razumov}\inst{2,3},
         \firstname{Witold}~\lastname{Pokorski}\inst{3} and
         \firstname{Alberto}~\lastname{Ribon}\inst{3}	
         % etc.
 }
 %\author{L.~Freyermuth \and D.~Konstantinov \and G.~Latyshev \and W.~Pokorski \and A.~Ribon}
 
-\institute{EISTI (Cergy, France) \and IHEP (Protvino, Russia) \and CERN 
+\institute{EISTI (Cergy, France) \and NRC “Kurchatov Institute” – IHEP (Protvino, Russia) \and CERN 
           }
 
 \abstract{%
-One of the key factors for the successful development of physics Monte-Carlo is to properly organize regression testing and validation. Geant4, the world-standard toolkit for HEP detector simulation, heavily relies on this activity. The CERN/SFT group, which contributes to the development, testing, deployment and support of the toolkit, is also in charge of running on a monthly basis a set of community-developed tests using the development releases of Geant4.
-We present the Web application geant-val developed for visualizing the results of these tests so that comparisons between different Geant4 releases can be made. The application is written using Express.js, Node.js and Angular frameworks, and uses PostgreSQL for storing test results. Test results are visualised using ROOT and JSROOT. In addition to pure visual comparisons, we perform different statistical tests (chi squared, Kolmogorov-Smirnov, etc) on the client side using Web Workers (JavaScript).
+One of the key factors for the successful development of Monte-Carlo programs for physics simulations is to properly organize regression testing and validation. Geant4, the world-standard toolkit for HEP detector simulation, heavily relies on this activity. The CERN SFT group, which contributes to the development, testing, deployment and support of the toolkit, is also in charge of running on a monthly basis a set of community-developed tests using the development releases of Geant4.
+We present the web application \textsf{Geant-val} developed for visualizing the results of these tests so that comparisons between different Geant4 releases can be made. The application is written using Express.js, Node.js and Angular frameworks, and uses PostgreSQL for storing test results. Test results are visualised using ROOT and JSROOT. In addition to pure visual comparisons, we perform different statistical tests ($\chi^2$, Kolmogorov-Smirnov, etc) on the client side using JavaScript Web Workers.
 }
 %
 \maketitle
 %
 \input{introduction}
 
-\input{webapplication}
-
-\input{tests}
+% \input{design}
 
 \input{workflow}
 
-\input{current_status}
+\input{webapplication}
+
+% \input{tests}
+
+% \input{plans}
+
+\input{conclusion}
 
 \input{bibliography}
 
 \input{appendix}
 
-
 \end{document}
-
-% end of file template.tex
-
-%<div id='footer'><table width='100%'><tr><td class='right'><a href='http://fusioninventory.org/'><span class='copyright'>FusionInventory 9.1+1.0 | copyleft <img src='/glpi/plugins/fusioninventory/pics/copyleft.png'/>  2010-2016 by FusionInventory Team</span></a></td></tr></table></div>
