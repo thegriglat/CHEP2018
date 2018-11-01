@@ -1,12 +1,38 @@
 \section{Requirements}
 \label{sec:requirements}
 
-A validation of software is a complex process involving entire Geant4 community starting from developers of core functionality end to users. Below we briefly list the requirements of validation system:
+A software validation is a continuous complex process involving entire Geant4 community. The main goal of presented application is to provide a fast and convenient web-based validation tool for Geant4 developers.
 
+Below is a brief list of the design ideas that were trying to implement in this validation application:
 \begin{itemize}
-    \item Simple integration of current set of Geant4 tests;
-    \item Support for various test's output formats -- ROOT and plain text;
-    \item High parallelism to run a large set of Geant4 tests in reasonable time. To achieve this the system should provide a way to run Geant4 tests in highly diversificated jobs in batch systems.
-    \item Frienly user interface;
-    \item User-driven developing.
+    \item Straightforward procedure for Geant4 test integration;
+    \item Displaying and analysing one- and multidimensional histograms and scatter data including case of different binning of two histograms on the same plot;
+    \item Comparing tests results with experimental data;
+    \item Creation of high quality plots with possibility to change plot style, ranges, scales, etc. on the web site;
+    % \item Providing to users as much information about tests results as possible;
+    % \item High parallelism to run and analyse a large set of Geant4 tests in reasonable time; % To achieve this the system should provide a way to run Geant4 tests in highly diversified jobs in batch systems.
+    \item Intuitive, modern and fast user interface.
+    %% \item Scalability: 
 \end{itemize}
+
+The application is deployed on CERN VM service and distributed as Docker image. The website is optimised for asynchronous access and plotting and can be easily horizontally scaled by launching new instances as the application has no software and hardware requirements except presence of Docker server.
+
+A \textit{plot} is a central element of the data model of \textsf{Geant-val} application. Each plot consists of:
+\begin{itemize}
+    \item Arrays describing histograms or scatter plots (including uncertainties);
+    \item Meta data (all fields are mandatory):
+    \begin{itemize}
+        \item Name of the measured physics value, which used for matching \textit{plot} to the experimental data;
+        \item The name and version of tool or "experiment";
+        \item Beam particle;
+        \item Beam energy;
+        \item Secondary particle;
+        \item Physics list;
+        \item Target;
+        \item Name of the Geant4 test or "experiment";
+        \item List of extra parameters with their values used for running the test (e.g. cuts, thicknesses, angles etc.).
+    \end{itemize}
+    \item Inspire~\cite{inspire} or HepDATA~\cite{hepdata} Id of the original article (only for experimental data).
+\end{itemize}
+
+\textit{Plot} type is used as interface for data communication between different parts of the web application. They are used for uploading data to the database, generating plots in standalone C++ plotter utility, displaying data on the web page, calculating result of statistical tests etc.

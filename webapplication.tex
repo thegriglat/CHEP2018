@@ -1,7 +1,7 @@
-\section{Components of validation system}
+\section{Software components}
 \label{sec-webapplication}
 
-The components of \textsf{Geant-val} web application and interactions between them are shown in the Fig.~\ref{fig:dataflow}.
+The components of \textsf{Geant-val} web application and interactions between them are shown in the Fig.~\ref{fig:dataflow}:
 
 \begin{figure}[h]
     \centering
@@ -10,16 +10,20 @@ The components of \textsf{Geant-val} web application and interactions between th
     \label{fig:dataflow}
 \end{figure}
 
-\textbf{The server} is the core of the Geant4 validation system. It provides a web API that allows clients to access the database, respond to the clients' requests and generate high quality plots "on the fly" whenever they are requested using the ROOT~\cite{ROOT} data analysis framework.
-It is written in JavaScript and runs with the Node.js engine~\cite{NodeJS}. 
+\begin{itemize}
 
-\textbf{The database} is used for storing plots containing simulation results or experimental data, together with parameters describing these plots: tool name and version (e.g. \texttt{Geant4, 10.4.p02}), name of the test by which the plot was produced, or Inspire (HepData) ID of the article, etc. PostgreSQL~\cite{Postgre} is used as database management system for the application. The database instance is provided by the CERN Database-On-Demand service  % The database schema is designed in a way to allow scatter plots and histograms with unlimited number of optional test parameters in additional to a few mandatory ones to be stored.
+\item \textbf{The server} is the core of the Geant4 validation system. It provides a web API that allows clients to access the database, asynchronously responds to the clients requests and generates high quality plots "on the fly" whenever they are requested.
+The server is written in JavaScript and runs with the Node.js engine~\cite{NodeJS}. 
+
+\item \textbf{The database} is used for storing plots containing simulation results or experimental data, together with meta data describing these plots.
+%: tool name and version (e.g. \texttt{Geant4, 10.4.p02}), name of the test by which the plot was produced, or Inspire (HepData) ID of the article, etc.
+PostgreSQL~\cite{Postgre} is used as database management system for the application. The database instance is provided by the CERN Database-On-Demand service. The database schema is designed in a way to store scatter plots and histograms with unlimited number of optional test parameters in additional to a few mandatory ones.
 
 % db schema
 
-\textbf{A ROOT-based C++ plotting utility} was developed to produce high quality plots. It uses data in the JSON format which has been introduced as main interchange format between all parts of the application. The utility is not deeply integrated in the server infrastructure and can be used as a standalone application. It supports all types of application's data, can plot histograms with different binning on one canvas, and produce ratio plots. Ranges and scales of plot axes are selected automatically, with ability to override if necessary. % User-defined styles are also supported.
+\item A ROOT-based C++ \textbf{plotting utility} was developed to produce high quality plots. It uses data in the JSON format which has been introduced as main interchange format between all parts of the application. The utility is not deeply integrated in the server infrastructure and can be used as a standalone application. It supports all types of application's data, can plot histograms with different binning on one canvas, and produce ratio plots. Ranges and scales of plot axes are selected automatically, with ability to override if necessary. % User-defined styles are also supported.
 
-\textbf{Web interface} is user-friendly AngularJS~\cite{AngularJS} single page application which provides plots with tests results together with statistical analysis to the users.
+\item \textbf{Web interface} is an AngularJS~\cite{AngularJS} single page application which shows plots with tests results together with statistical analysis. The web page is well working on most popular mobile and desktop browsers (Firefox, Chromium-based browsers, Safari, Edge).
 
 %AngularJS is chosen because it allows to build efficient web applications with highly reusable components.
 
@@ -63,7 +67,7 @@ It is written in JavaScript and runs with the Node.js engine~\cite{NodeJS}.
 %    \label{fig:exppage}
 %\end{figure}
 
-Each plot on the website can be displayed as a static image produced by {\tt plotter} or as an interactive JSROOT~\cite{JSROOT} object, which allows changing axes ranges, scales and styles of the data "on the fly" in the same way as it can be done in ROOT. It is possible to export the plots in PNG, ROOT, EPS, Gnuplot~\cite{gnuplot} or \textsf{Geant-val} JSON format. 
+Each plot on the website can be displayed as a static image produced by plotting utility or as an interactive JSROOT~\cite{JSROOT} canvas, which allows changing axes ranges, scales and styles of the data "on the fly" in the same way as it can be done in ROOT. It is possible to export the plots in PNG, ROOT, EPS, Gnuplot~\cite{gnuplot} or \textsf{Geant-val} JSON format. 
 
 Access to the test results produced with internal Geant4 releases is restricted to the Geant4 developers authenticated via CERN Single Sign-On. For public Geant4 releases the access is open to anyone.
 
@@ -118,5 +122,7 @@ Access to the test results produced with internal Geant4 releases is restricted 
 %\vspace*{5cm}  % with the correct table height
 %\end{table}
 
-To manage a set of Geant4 tests and their configurations, a {\tt mc-config-generator} \textbf{Python-based framework} was developed. It allows one to configure and run test jobs in various batch systems (CERN LSF, HTCondor, Torque PBS), and to convert the results into  JSON format for further uploading to the application database. The framework is not Geant4-specific, and can be used with other projects (e.g., Pythia8). Source code is available in corresponding Git repository\footnote{https://gitlab.cern.ch/GeantValidation/geant-config-generator}.
+% it is needed?
+% To manage a set of Geant4 tests and their configurations, a {\tt mc-config-generator} \textbf{Python-based framework} was developed. It allows one to configure and run test jobs in various batch systems (CERN LSF, HTCondor, Torque PBS), and to convert the results into  JSON format for further uploading to the application database. The framework is not Geant4-specific, and can be used with other projects (e.g., Pythia8). Source code is available in corresponding Git repository\footnote{https://gitlab.cern.ch/GeantValidation/geant-config-generator}.
 
+\end{itemize}
