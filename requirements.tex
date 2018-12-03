@@ -16,28 +16,28 @@ Below is a brief list of the design ideas that were trying to implement in this 
     \item Usage of technologies allowing fast feature developing and integration processes.
 \end{itemize}
 
-To implement these ideas in practice we decided to use JavaScript on server (Node.js) and client (AngularJS) components of the application together with Python and C++ utilities. To produce high quality plots we used ROOT framework extended with JSROOT library to provide interactive plots on the web pages.
+To implement these ideas in practice it was decided to use JavaScript on server (Node.js) and client (AngularJS) components of the application together with Python and C++ utilities. ROOT framework along with JSROOT library is used to produce high quality plots.
 
-For fast deploying we distribute the application as Docker image which is hosted on virtual machine provided by CERN VM service. The website is optimised for asynchronous access and plotting and can be easily ''horizontally'' scaled by launching new instances as the application has no software and hardware requirements except presence of Docker server.
+To keep data consistency over all application services a \textit{plot} data type is introduced. A \textit{plot} is a central element of the data model of \textsf{Geant-val} application.
+%\begin{itemize}
+%    \item Histogram or scatter plot data (including %statistical and systematic uncertainties);
+%    \item Meta data (particles, targets, physics model, etc.);
+%    \begin{itemize}
+%        \item Name of the measured physics value, which used for %matching \textit{plot} to the experimental data;
+%        \item The name and version of tool or "experiment";
+%        \item Beam particle;
+%        \item Beam energy;
+%        \item Secondary particle;
+%        \item Physics list;
+%        \item Target;
+%        \item Name of the Geant4 test or "experiment";
+%        \item List of extra parameters with their values used for %running the test (e.g. cuts, thicknesses, angles etc.).
+%    \end{itemize}
+%   \item Inspire~\cite{inspire} or HepDATA~\cite{hepdata} Id of the original article.
+%\end{itemize}
+\textit{Plot} type is used as interface for data communication between different parts of the web application and represented in JSON format. These JSON files can be further used for uploading data to the database, generating plots in standalone C++ plotter utility, displaying data on the web page, calculating result of statistical tests etc.
+Each \textit{plot} consists of histogram of scatter plot data and meta data parts. Meta data describes configuration used to run Monte-Carlo simulation and its results (beams, targets, physics models, etc.).
 
-To keep data consistency over all application services a \textit{plot} data type is introduced. A \textit{plot} is a central element of the data model of \textsf{Geant-val} application. Each \textit{plot} consists of:
-\begin{itemize}
-    \item Data in histograms or scatter plots (including statistical and systematic uncertainties);
-    \item Meta data (all fields are mandatory):
-    \begin{itemize}
-        \item Name of the measured physics value, which used for matching \textit{plot} to the experimental data;
-        \item The name and version of tool or "experiment";
-        \item Beam particle;
-        \item Beam energy;
-        \item Secondary particle;
-        \item Physics list;
-        \item Target;
-        \item Name of the Geant4 test or "experiment";
-        \item List of extra parameters with their values used for running the test (e.g. cuts, thicknesses, angles etc.).
-    \end{itemize}
-    \item Inspire~\cite{inspire} or HepDATA~\cite{hepdata} Id of the original article (only for experimental data).
-\end{itemize}
+To produce and convert tests results to \textit{plot}'s JSON files Python system {\tt mc-config-generator} has been developed. This tool provides uniform way to configure, run in batch systems (LSF, Torque PBS, HTCondor) and analyse test's jobs including exceptions and timing statistics.
 
-\textit{Plot} type is used as interface for data communication between different parts of the web application and represented in JSON format. They are used for uploading data to the database, generating plots in standalone C++ plotter utility, displaying data on the web page, calculating result of statistical tests etc.
-
-To produce and convert tests results to \textit{plot}'s JSON files we developed Python system {\tt mc-config-generator}. This tool provides uniform way to configure, run in batch systems (LSF, Torque PBS, HTCondor) and analyse test's jobs including exceptions and timing statistics. 
+For fast deploying  the application is distributed as Docker image which is hosted on virtual machine provided by CERN VM service. The website is optimised for asynchronous access and plotting and can be easily ''horizontally'' scaled by launching new instances as the application has no software and hardware requirements except presence of running Docker server.

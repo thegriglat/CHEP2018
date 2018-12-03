@@ -14,7 +14,7 @@ In visual mode  (see Fig.~\ref{fig:sc_visual_ratio}) one can select various para
 In statistical mode (see Fig.~\ref{fig:statcomparison}) the page shows results of $\chi^2$ ($\chi^2/n.d.f.$, $\chi^2$ probability) and Kolmogorov-Smirnov (KS Max(D), KS probability) tests between two Geant4 releases for all matching pairs of test results.
 All computations are fast and performed asynchronously on the client side using JavaScript WebWorkers. For this purpose, JavaScript code to perform $\chi^2$ and Kolmogorov-Smirnov tests have been written, and their results cross-checked against the same statistical techniques implemented in the ROOT framework ({\tt ROOT::TH1::Chi2Test()} and {\tt ROOT:TMath::KolmogorovTest()} correspondingly).
 
-Users can specify range of $\chi^2$ probability to mark results with ''bad'', ''warning'' and ''good'' tags and/or hide classified tags independently. Further it is possible to download PDF report with plots.
+Users can specify range of $\chi^2$ probability to mark results with ''bad'', ''warning'' and ''good''. Further it is possible to download PDF report with plots with selected classification.
 
 \begin{figure}[h]
     \centering
