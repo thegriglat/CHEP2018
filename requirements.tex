@@ -11,15 +11,18 @@ Below is a brief list of the design ideas that were trying to implement in this 
     \item Creation of high quality plots with possibility to change plot style, ranges, scales, etc. on the web site;
     % \item Providing to users as much information about tests results as possible;
     % \item High parallelism to run and analyse a large set of Geant4 tests in reasonable time; % To achieve this the system should provide a way to run Geant4 tests in highly diversified jobs in batch systems.
-    \item Intuitive, modern and fast user interface.
+    \item Intuitive, modern and fast user interface;
     %% \item Scalability: 
+    \item Usage of technologies allowing fast feature developing and integration processes.
 \end{itemize}
 
-The application is deployed on CERN VM service and distributed as Docker image. The website is optimised for asynchronous access and plotting and can be easily horizontally scaled by launching new instances as the application has no software and hardware requirements except presence of Docker server.
+To implement these ideas in practice we decided to use JavaScript on server (Node.js) and client (AngularJS) components of the application together with Python and C++ utilities. To produce high quality plots we used ROOT framework extended with JSROOT library to provide interactive plots on the web pages.
 
-A \textit{plot} is a central element of the data model of \textsf{Geant-val} application. Each plot consists of:
+For fast deploying we distribute the application as Docker image which is hosted on virtual machine provided by CERN VM service. The website is optimised for asynchronous access and plotting and can be easily ''horizontally'' scaled by launching new instances as the application has no software and hardware requirements except presence of Docker server.
+
+To keep data consistency over all application services a \textit{plot} data type is introduced. A \textit{plot} is a central element of the data model of \textsf{Geant-val} application. Each \textit{plot} consists of:
 \begin{itemize}
-    \item Arrays describing histograms or scatter plots (including uncertainties);
+    \item Data in histograms or scatter plots (including statistical and systematic uncertainties);
     \item Meta data (all fields are mandatory):
     \begin{itemize}
         \item Name of the measured physics value, which used for matching \textit{plot} to the experimental data;
@@ -35,4 +38,6 @@ A \textit{plot} is a central element of the data model of \textsf{Geant-val} app
     \item Inspire~\cite{inspire} or HepDATA~\cite{hepdata} Id of the original article (only for experimental data).
 \end{itemize}
 
-\textit{Plot} type is used as interface for data communication between different parts of the web application. They are used for uploading data to the database, generating plots in standalone C++ plotter utility, displaying data on the web page, calculating result of statistical tests etc.
+\textit{Plot} type is used as interface for data communication between different parts of the web application and represented in JSON format. They are used for uploading data to the database, generating plots in standalone C++ plotter utility, displaying data on the web page, calculating result of statistical tests etc.
+
+To produce and convert tests results to \textit{plot}'s JSON files we developed Python system {\tt mc-config-generator}. This tool provides uniform way to configure, run in batch systems (LSF, Torque PBS, HTCondor) and analyse test's jobs including exceptions and timing statistics. 

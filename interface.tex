@@ -3,19 +3,18 @@
 
 The \textsf{Geant-val} website provides two ways of viewing and comparing results:
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.8\textwidth,clip]{layout_sc.png}
-    \caption{Layout for the Geant4 "simplified calorimeter" test with results for Geant4 reference releases 10.4.ref07, 10.4.ref08 and physics lists FTFP\_BERT and QGSP\_BERT.}
-    \label{fig:layouts}
-\end{figure}
+\begin{itemize}
 
-\textit{Statistical comparisons} page allows one to perform comparison of simulation with compatible experimental results using statistical tests and visually. % It displays results of statistical comparison for pairs of plots with the same parameters' values.
+
+
+\item \textit{Statistical comparisons} page allows one to perform comparison of simulation with compatible experimental results using statistical tests and visually. % It displays results of statistical comparison for pairs of plots with the same parameters' values.
 
 In visual mode  (see Fig.~\ref{fig:sc_visual_ratio}) one can select various parameters in left side drop down menu and request plots corresponding selected values. In this mode page it is possible to mark one Geant4 release as "reference" to get ratio plots between several results.
 
 In statistical mode (see Fig.~\ref{fig:statcomparison}) the page shows results of $\chi^2$ ($\chi^2/n.d.f.$, $\chi^2$ probability) and Kolmogorov-Smirnov (KS Max(D), KS probability) tests between two Geant4 releases for all matching pairs of test results.
-All computations are performed asynchronously on the client side using JavaScript WebWorkers. For this purpose, JavaScript code to perform $\chi^2$ and Kolmogorov-Smirnov tests have been written, and their results cross-checked against the same statistical techniques implemented in the ROOT framework ({\tt ROOT::TH1::Chi2Test()} and {\tt ROOT:TMath::KolmogorovTest()} correspondingly).
+All computations are fast and performed asynchronously on the client side using JavaScript WebWorkers. For this purpose, JavaScript code to perform $\chi^2$ and Kolmogorov-Smirnov tests have been written, and their results cross-checked against the same statistical techniques implemented in the ROOT framework ({\tt ROOT::TH1::Chi2Test()} and {\tt ROOT:TMath::KolmogorovTest()} correspondingly).
+
+Users can specify range of $\chi^2$ probability to mark results with ''bad'', ''warning'' and ''good'' tags and/or hide classified tags independently. Further it is possible to download PDF report with plots.
 
 \begin{figure}[h]
     \centering
@@ -33,4 +32,17 @@ All computations are performed asynchronously on the client side using JavaScrip
 
 
 
-\textit{User layouts} page (see Fig.~\ref{fig:layouts}). Some Geant4 tests produce hundreds of different plots, but for fast "visual" validation it is often enough to compare only a small well-defined subset of them. The \textit{layout} is an XML file describing what plots should be displayed and how should they be laid out on a page. User can use one of the existing layouts or define their own one.
+\item \textit{User layouts} page (see Fig.~\ref{fig:layouts}). Some Geant4 tests produce hundreds of different plots, but for fast "visual" validation it is often enough to compare only a small well-defined subset of them. On the page user needs just to select layout to be used, Geant4 version(s) and physics list(s) and experimental data to be used. All other plot's parameters should be defined in layout file. It allows to perform fast and clear visual comparing of several Geant4 versions/physics lists. For all plots there is possibility to request ratio plots to see difference between them in detail.
+
+The \textit{layout} is an XML file describing what plots should be displayed and how should they be laid out on a page. We provide layouts for integrated tests however users can define and use on the website their own one.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth,clip]{layout_sc.png}
+    \caption{Layout for the Geant4 "simplified calorimeter" test with results for Geant4 reference releases 10.4.ref07, 10.4.ref08 and physics lists FTFP\_BERT and QGSP\_BERT.}
+    \label{fig:layouts}
+\end{figure}
+
+\end{itemize}
+
+In both comparison modes users can change plot's axes ranges/scales and download them in PNG, EPS, ROOT formats. Raw plot's data in Gnuplot and the website's JSON formats are also accessible.
