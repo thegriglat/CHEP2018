@@ -50,37 +50,6 @@
 \label{adx:JSON-format}
 \end{figure}
 
-\begin{figure}[h]
-
-\begin{lstlisting}[language=xml,firstnumber=1,breaklines=true,
-  postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
-<?xml version="1.0" encoding="UTF-8"?>
-<layout>
-  <default model="FTFP_BERT"></default>
-  <row>
-    <label text="\LARGE{tileatlas}" colspan="4"/>
-  </row>
-  <!-- energy response, normalized width, longitudinal shower shape and lateral shower shape -->
-  <row>
-    <plot test="tileatlas" observable="relative energy deposition" beam="e-" energy="10"   secondary="None" target="tileatlas" parname="THETA" parvalue="0 degrees" yaxis="lin" xaxis="lin" title=""/>
-    <plot test="tileatlas" observable="relative energy deposition" beam="e-" energy="10"   secondary="None" target="tileatlas" parname="THETA" parvalue="20 degrees" yaxis="lin" xaxis="lin" title=""/>
-  </row>
-  <row>
-    <plot test="tileatlas" observable="relative energy deposition" beam="e-" energy="20"   secondary="None" target="tileatlas" parname="THETA" parvalue="21 degrees" yaxis="lin" xaxis="lin" title=""/>
-    <plot test="tileatlas" observable="relative energy deposition" beam="e-" energy="20"   secondary="None" target="tileatlas" parname="THETA" parvalue="61 degrees" yaxis="lin" xaxis="lin" title=""/>
-   </row>
-  <row>
-    <plot test="tileatlas" observable="relative energy deposition" beam="e-" energy="100"   secondary="None" target="tileatlas" parname="THETA" parvalue="0 degrees" yaxis="lin" xaxis="lin" title=""/>
-    <plot test="tileatlas" observable="relative energy deposition" beam="e-" energy="100"   secondary="None" target="tileatlas" parname="THETA" parvalue="10 degrees" yaxis="lin" xaxis="lin" title=""/>
-    <plot test="tileatlas" observable="relative energy deposition" beam="e-" energy="100"   secondary="None" target="tileatlas" parname="THETA" parvalue="20 degrees" yaxis="lin" xaxis="lin" title=""/>
-  </row>
-</layout>
-\end{lstlisting}
-
-\caption{Example of User layout XML file.}
-\label{adx:XML-format}
-\end{figure}
-
 %\begin{figure}
 %\begin{lstlisting}
 %/control/verbose 1
