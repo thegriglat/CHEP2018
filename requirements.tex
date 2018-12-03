@@ -1,43 +1,28 @@
 \section{Requirements}
 \label{sec:requirements}
 
-A software validation is a continuous complex process involving entire Geant4 community. The main goal of presented application is to provide a fast and convenient web-based validation tool for Geant4 developers.
+A software validation is a continuous complex process involving the entire Geant4 community. The main goal of presented application is to provide a fast and convenient web-based validation tool for Geant4 developers.
 
-Below is a brief list of the design ideas that were trying to implement in this validation application:
+Below is a brief list of the design ideas
+%that were trying to implement in this validation application
+and how they were implemented:
 \begin{itemize}
-    \item Straightforward procedure for Geant4 test integration;
-    \item Displaying and analysing one- and multidimensional histograms and scatter data including case of different binning of two histograms on the same plot;
-    \item Comparing tests results with experimental data;
-    \item Creation of high quality plots with possibility to change plot style, ranges, scales, etc. on the web site;
+    \item The procedure for integrating new Geant4 tests should be simple and straightforward;
+    \item User should be able to display and analyse one- and multidimensional histograms and scatter plots, with same or different binning;
+    \item User should be able to compare tests results with experimental data;
+    \item It should be possible to produce high quality plots with custom plot style, ranges, scales, etc. using only the website;
     % \item Providing to users as much information about tests results as possible;
     % \item High parallelism to run and analyse a large set of Geant4 tests in reasonable time; % To achieve this the system should provide a way to run Geant4 tests in highly diversified jobs in batch systems.
-    \item Intuitive, modern and fast user interface;
+    \item Application should have intuitive, modern and fast user interface;
     %% \item Scalability: 
-    \item Usage of technologies allowing fast feature developing and integration processes.
+    \item Use the technologies that allows fast feature development and integration.
 \end{itemize}
 
-To implement these ideas in practice it was decided to use JavaScript on server (Node.js) and client (AngularJS) components of the application together with Python and C++ utilities. ROOT framework along with JSROOT library is used to produce high quality plots.
+To implement these ideas in practice we decided to write the server and client parts of the application in JavaScript, using Node.js~\cite{NodeJS} and AngularJS~\cite{AngularJS}, respectively, and to use ROOT~\cite{ROOT} framework along with JSROOT~\cite{JSROOT} library to produce high quality plots. Python and C++ were used for writing service utilities.
 
-To keep data consistency over all application services a \textit{plot} data type is introduced. A \textit{plot} is a central element of the data model of \textsf{Geant-val} application.
-%\begin{itemize}
-%    \item Histogram or scatter plot data (including %statistical and systematic uncertainties);
-%    \item Meta data (particles, targets, physics model, etc.);
-%    \begin{itemize}
-%        \item Name of the measured physics value, which used for %matching \textit{plot} to the experimental data;
-%        \item The name and version of tool or "experiment";
-%        \item Beam particle;
-%        \item Beam energy;
-%        \item Secondary particle;
-%        \item Physics list;
-%        \item Target;
-%        \item Name of the Geant4 test or "experiment";
-%        \item List of extra parameters with their values used for %running the test (e.g. cuts, thicknesses, angles etc.).
-%    \end{itemize}
-%   \item Inspire~\cite{inspire} or HepDATA~\cite{hepdata} Id of the original article.
-%\end{itemize}
-\textit{Plot} type is used as interface for data communication between different parts of the web application and represented in JSON format. These JSON files can be further used for uploading data to the database, generating plots in standalone C++ plotter utility, displaying data on the web page, calculating result of statistical tests etc.
-Each \textit{plot} consists of histogram of scatter plot data and meta data parts. Meta data describes configuration used to run Monte-Carlo simulation and its results (beams, targets, physics models, etc.).
+In order to keep data consistent over all application services a \textit{plot} data type was introduced. A \textit{plot} object is a central element of the data model of \textsf{Geant-val} application, used for exchanging data between different parts of the web application: displaying data on the web page, calculating result of statistical tests etc. Files containing \textit{plot} objects in JSON~\cite{json} format are used for uploading data to the database, generating plots with standalone C++ plotter utility. 
+Each \textit{plot} consists of histogram or scatter plot data and necessary metadata describing configuration used to run Monte-Carlo simulation (Geant4 version, physics list), test parameters (beams, targets, energies, etc.) and its results (e.g., the name of the quantity measured).
 
-To produce and convert tests results to \textit{plot}'s JSON files Python system {\tt mc-config-generator} has been developed. This tool provides uniform way to configure, run in batch systems (LSF, Torque PBS, HTCondor) and analyse test's jobs including exceptions and timing statistics.
+A {\tt mc-config-generator} Python tool was developed to produce JSON files containing \textit{plot} objects from test output. It also provides a uniform way to prepare and run tests on the batch system (LSF, Torque PBS, HTCondor), and to get information about execution times and any Geant4 exceptions generated during test execution.
 
-For fast deploying  the application is distributed as Docker image which is hosted on virtual machine provided by CERN VM service. The website is optimised for asynchronous access and plotting and can be easily ''horizontally'' scaled by launching new instances as the application has no software and hardware requirements except presence of running Docker server.
+For faster deployment, the application is distributed as Docker image which is hosted on virtual machine provided by CERN VM service. The website is optimised for asynchronous access and plotting and can be easily scaled ''horizontally'' by launching new instances.%, as the application has no software and hardware requirements except presence of running Docker server.
