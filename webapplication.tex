@@ -1,19 +1,19 @@
 \section{Software components}
 \label{sec-webapplication}
 
-The components of \textsf{Geant-val} web application and interactions between them are shown in the Fig.~\ref{fig:dataflow}:
+The components of \textsf{Geant-val} web application and interactions between them are shown in the Fig.~\ref{fig:gvp_dataflow}:
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth,clip]{schema.png}
     \caption{Components of \textsf{Geant-val} web application and flow of data between them.}
-    \label{fig:dataflow}
+    \label{fig:gvp_dataflow}
 \end{figure}
 
 \begin{itemize}
 
 \item \textbf{The server} is the core of the Geant4 validation system. It provides a web API that allows clients to access the database, asynchronously responds to the clients requests and generates high quality plots "on the fly" whenever they are requested.
-The server is written in JavaScript and runs with the Node.js engine. 
+The server is written in JavaScript and runs with the Node.js engine.
 
 \item \textbf{The database} is used for storing plots containing simulation results or experimental data, together with meta data describing these plots.
 %: tool name and version (e.g. \texttt{Geant4, 10.4.p02}), name of the test by which the plot was produced, or Inspire (HepData) ID of the article, etc.
@@ -41,9 +41,9 @@ PostgreSQL~\cite{Postgre} is used as database management system for the applicat
 %\end{figure}
 
 %\textit{User layouts} page (see Fig.~\ref{fig:layouts}). Some Geant4 tests produce hundreds of different plots, but for fast "visual" validation it is often enough to compare only a small well-defined subset of them. The \textit{User layout} is an XML file describing what plots should be displayed and how should they be laid out on a page. User can use one of the existing layouts or define their own one (see Appendix~\ref{adx:XML-format}).
-% is used to perform fast visual validation of Geant4.  
-% One can use one of the existing templates or create and upload their own one. 
-% It is possible to compare different versions between themselves or against experimental data. 
+% is used to perform fast visual validation of Geant4.
+% One can use one of the existing templates or create and upload their own one.
+% It is possible to compare different versions between themselves or against experimental data.
 % If two or more Geant4 versions are selected, one can also select a "reference" dataset and plot the ratio of other datasets to it.
 
 %\begin{figure}[h]
@@ -67,7 +67,7 @@ PostgreSQL~\cite{Postgre} is used as database management system for the applicat
 %    \label{fig:exppage}
 %\end{figure}
 
-Each plot on the website can be displayed as a static image produced by plotting utility or as an interactive JSROOT canvas, which allows changing axes ranges, scales and styles of the data "on the fly" in the same way as it can be done in ROOT. It is possible to export the plots in PNG, ROOT, EPS, Gnuplot~\cite{gnuplot}. It is also possible to view JSON representation of \textit{plot} objects corresponding to the displayed distributions. 
+Each plot on the website can be displayed as a static image produced by plotting utility or as an interactive JSROOT canvas, which allows changing axes ranges, scales and styles of the data "on the fly" in the same way as it can be done in ROOT. It is possible to export the plots in PNG, ROOT, EPS, Gnuplot~\cite{gnuplot}. It is also possible to view JSON representation of \textit{plot} objects corresponding to the displayed distributions.
 
 Access to the test results produced with internal Geant4 releases is restricted to the Geant4 developers authenticated via CERN Single Sign-On. For public Geant4 releases the access is open to anyone.
 
