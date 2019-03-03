@@ -23,7 +23,7 @@ PostgreSQL~\cite{Postgre} is used as database management system for the applicat
 
 \item A ROOT-based C++ \textbf{plotting utility} was developed to produce high quality plots. It uses data in the JSON format which has been introduced as main interchange format between all parts of the application. The utility is not deeply integrated in the server infrastructure and can be used as a standalone application. It supports all types of application's data, can plot histograms with different binning on one canvas, and produce ratio plots. Ranges and scales of plot axes are selected automatically, but can be overriden if necessary. % User-defined styles are also supported.
 
-\item The \textbf{Web interface} is an AngularJS single page application which shows plots with tests results together with statistical analysis. The web page is working well on most popular mobile and desktop browsers (Firefox, Chromium-based browsers, Safari, Edge).
+\item The \textbf{Web interface} is an AngularJS single page application which shows plots with tests results together with statistical analysis. The web page was verified on the most popular mobile and desktop browsers (Firefox, Chromium-based browsers, Safari, Edge).
 
 %AngularJS is chosen because it allows to build efficient web applications with highly reusable components.
 
@@ -67,7 +67,7 @@ PostgreSQL~\cite{Postgre} is used as database management system for the applicat
 %    \label{fig:exppage}
 %\end{figure}
 
-Each plot on the website can be displayed as a static image produced by plotting utility or as an interactive JSROOT canvas, which allows changing axes ranges, scales and styles of the data "on the fly" in the same way as it can be done in ROOT. It is possible to export the plots in PNG, ROOT, EPS, Gnuplot~\cite{gnuplot}. It is also possible to view JSON representation of \textit{plot} objects corresponding to the displayed distributions.
+Each plot on the website can be displayed as a static image produced by plotting utility or as an interactive JSROOT canvas. The latter allows the user to change the range or scale of axes, and the style of the data "on the fly" in the same way as it can be done in ROOT. It is possible to export the plots in PNG, ROOT, EPS, Gnuplot~\cite{gnuplot}. It is also possible to view JSON representation of \textit{plot} objects corresponding to the displayed distributions.
 
 Access to the test results produced with internal Geant4 releases is restricted to the Geant4 developers authenticated via CERN Single Sign-On. For public Geant4 releases the access is open to anyone.
 
